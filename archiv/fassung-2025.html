@@ -1,0 +1,4687 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Geschichte(n) - Interaktives Lernportal</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+
+        :root {
+
+            --primary: #2c3e50;
+
+            --secondary: #3498db;
+
+            --accent: #e74c3c;
+
+            --light: #ecf0f1;
+
+            --dark: #2c3e50;
+
+            --success: #27ae60;
+
+            --warning: #f39c12;
+
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+            --transition: all 0.3s ease;
+
+        }
+
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            background-color: #f5f7fa;
+
+            color: var(--dark);
+
+            line-height: 1.6;
+
+        }
+
+
+
+        .container {
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+            padding: 20px;
+
+        }
+
+
+
+        header {
+
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+
+            color: white;
+
+            padding: 2rem 0;
+
+            text-align: center;
+
+            margin-bottom: 2rem;
+
+            box-shadow: var(--shadow);
+
+            position: relative;
+
+        }
+
+
+
+        header h1 {
+
+            font-size: 2.5rem;
+
+            margin-bottom: 0.5rem;
+
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+        }
+
+
+
+        header p {
+
+            font-size: 1.2rem;
+
+            opacity: 0.9;
+
+            max-width: 800px;
+
+            margin: 0 auto;
+
+        }
+
+
+
+        .main-nav {
+
+            display: flex;
+
+            justify-content: center;
+
+            flex-wrap: wrap;
+
+            gap: 20px;
+
+            margin-bottom: 2rem;
+
+        }
+
+
+
+        .nav-card {
+
+            background: white;
+
+            border-radius: 10px;
+
+            width: 300px;
+
+            overflow: hidden;
+
+            box-shadow: var(--shadow);
+
+            transition: var(--transition);
+
+            cursor: pointer;
+
+        }
+
+
+
+        .nav-card:hover {
+
+            transform: translateY(-10px);
+
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+        }
+
+
+
+        .nav-card-image {
+
+            height: 180px;
+
+            background-size: cover;
+
+            background-position: center;
+
+        }
+
+
+
+        .nav-card-content {
+
+            padding: 20px;
+
+        }
+
+
+
+        .nav-card h3 {
+
+            color: var(--primary);
+
+            margin-bottom: 10px;
+
+            font-size: 1.3rem;
+
+        }
+
+
+
+        .nav-card p {
+
+            color: #666;
+
+            margin-bottom: 15px;
+
+            font-size: 0.9rem;
+
+        }
+
+
+
+        .nav-card .btn {
+
+            display: inline-block;
+
+            background: var(--secondary);
+
+            color: white;
+
+            padding: 8px 15px;
+
+            border-radius: 5px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            transition: var(--transition);
+
+        }
+
+
+
+        .nav-card .btn:hover {
+
+            background: var(--primary);
+
+        }
+
+
+
+        /* Modal/Popup Stile */
+
+        .modal {
+
+            display: none;
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: rgba(0, 0, 0, 0.7);
+
+            z-index: 1000;
+
+            overflow-y: auto;
+
+        }
+
+
+
+        .modal-content {
+
+            background: white;
+
+            margin: 5% auto;
+
+            width: 80%;
+
+            max-width: 900px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+            animation: modalFadeIn 0.4s;
+
+            max-height: 80vh;
+
+            overflow-y: auto;
+
+        }
+
+
+
+        @keyframes modalFadeIn {
+
+            from { opacity: 0; transform: translateY(-50px); }
+
+            to { opacity: 1; transform: translateY(0); }
+
+        }
+
+
+
+        .modal-header {
+
+            background: var(--primary);
+
+            color: white;
+
+            padding: 15px 20px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            border-top-left-radius: 10px;
+
+            border-top-right-radius: 10px;
+
+        }
+
+
+
+        .modal-header h2 {
+
+            margin: 0;
+
+            font-size: 1.5rem;
+
+        }
+
+
+
+        .close-modal {
+
+            background: none;
+
+            border: none;
+
+            color: white;
+
+            font-size: 1.5rem;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+
+        }
+
+
+
+        .close-modal:hover {
+
+            transform: rotate(90deg);
+
+        }
+
+
+
+        .modal-body {
+
+            padding: 20px;
+
+        }
+
+
+
+        .section {
+
+            margin-bottom: 30px;
+
+            background: white;
+
+            border-radius: 8px;
+
+            padding: 20px;
+
+            box-shadow: var(--shadow);
+
+        }
+
+
+
+        .section h3 {
+
+            color: var(--primary);
+
+            margin-bottom: 15px;
+
+            padding-bottom: 10px;
+
+            border-bottom: 2px solid var(--light);
+
+            cursor: pointer;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+
+        .section h3::after {
+
+            content: '+';
+
+            font-size: 1.5rem;
+
+        }
+
+
+
+        .section h3.active::after {
+
+            content: '-';
+
+        }
+
+
+
+        .subsection {
+
+            margin-bottom: 20px;
+
+            padding-left: 15px;
+
+            border-left: 3px solid var(--light);
+
+        }
+
+
+
+        .subsection h4 {
+
+            color: var(--secondary);
+
+            margin-bottom: 10px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+
+        .subsection h4::after {
+
+            content: '+';
+
+            font-size: 1.2rem;
+
+        }
+
+
+
+        .subsection h4.active::after {
+
+            content: '-';
+
+        }
+
+
+
+        .sub-subsection {
+
+            margin-left: 15px;
+
+            padding-left: 15px;
+
+            border-left: 2px solid #eee;
+
+        }
+
+
+
+        .sub-subsection h5 {
+
+            color: var(--accent);
+
+            margin-bottom: 10px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+
+        .sub-subsection h5::after {
+
+            content: '+';
+
+            font-size: 1.1rem;
+
+        }
+
+
+
+        .sub-subsection h5.active::after {
+
+            content: '-';
+
+        }
+
+
+
+        .content {
+
+            display: none;
+
+            padding: 15px 0;
+
+        }
+
+
+
+        .content.active {
+
+            display: block;
+
+        }
+
+
+
+        .example-box {
+
+            background: #f8f9fa;
+
+            border-left: 4px solid var(--secondary);
+
+            padding: 15px;
+
+            margin: 15px 0;
+
+            border-radius: 0 5px 5px 0;
+
+        }
+
+
+
+        .example-title {
+
+            font-weight: bold;
+
+            color: var(--primary);
+
+            margin-bottom: 10px;
+
+            display: flex;
+
+            align-items: center;
+
+        }
+
+
+
+        .example-title i {
+
+            margin-right: 10px;
+
+            color: var(--accent);
+
+        }
+
+
+
+        .toggle-btn {
+
+            background: var(--light);
+
+            border: none;
+
+            padding: 8px 15px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            margin: 10px 0;
+
+            transition: var(--transition);
+
+        }
+
+
+
+        .toggle-btn:hover {
+
+            background: #dfe6e9;
+
+        }
+
+
+
+        .toggle-btn i {
+
+            margin-right: 8px;
+
+            transition: var(--transition);
+
+        }
+
+
+
+        .toggle-btn.active i {
+
+            transform: rotate(90deg);
+
+        }
+
+
+
+        .hidden-content {
+
+            display: none;
+
+            padding: 15px;
+
+            background: white;
+
+            border-radius: 5px;
+
+            margin-top: 10px;
+
+            border: 1px solid #eee;
+
+        }
+
+
+
+        .triftigkeit-game {
+
+            background: #f8f9fa;
+
+            padding: 20px;
+
+            border-radius: 8px;
+
+            margin: 20px 0;
+
+        }
+
+
+
+        .triftigkeit-options {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin: 15px 0;
+
+            flex-wrap: wrap;
+
+        }
+
+
+
+        .triftigkeit-btn {
+
+            background: var(--light);
+
+            border: none;
+
+            padding: 10px 15px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+
+        }
+
+
+
+        .triftigkeit-btn:hover {
+
+            background: #dfe6e9;
+
+        }
+
+
+
+        .feedback {
+
+            padding: 15px;
+
+            border-radius: 5px;
+
+            margin-top: 15px;
+
+            display: none;
+
+        }
+
+
+
+        .feedback.correct {
+
+            background: #e8f5e9;
+
+            border-left: 4px solid var(--success);
+
+            display: block;
+
+        }
+
+
+
+        .feedback.incorrect {
+
+            background: #ffebee;
+
+            border-left: 4px solid var(--accent);
+
+            display: block;
+
+        }
+
+
+
+        .next-btn {
+
+            background: var(--secondary);
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 20px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            margin-top: 15px;
+
+            display: none;
+
+            transition: var(--transition);
+
+        }
+
+
+
+        .next-btn:hover {
+
+            background: #2980b9;
+
+        }
+
+
+
+        /* Responsive Design */
+
+        @media (max-width: 768px) {
+
+            .main-nav {
+
+                flex-direction: column;
+
+                align-items: center;
+
+            }
+
+            
+
+            .nav-card {
+
+                width: 100%;
+
+                max-width: 350px;
+
+            }
+
+            
+
+            .modal-content {
+
+                width: 95%;
+
+                margin: 10% auto;
+
+            }
+
+        }
+
+
+
+        /* Zusätzliche visuelle Elemente */
+
+        .timeline {
+
+            position: relative;
+
+            padding-left: 30px;
+
+            margin: 20px 0;
+
+        }
+
+
+
+        .timeline::before {
+
+            content: '';
+
+            position: absolute;
+
+            left: 10px;
+
+            top: 0;
+
+            bottom: 0;
+
+            width: 2px;
+
+            background: var(--secondary);
+
+        }
+
+
+
+        .timeline-item {
+
+            position: relative;
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .timeline-item::before {
+
+            content: '';
+
+            position: absolute;
+
+            left: -30px;
+
+            top: 5px;
+
+            width: 12px;
+
+            height: 12px;
+
+            border-radius: 50%;
+
+            background: var(--accent);
+
+            border: 2px solid white;
+
+        }
+
+
+
+        .timeline-date {
+
+            font-weight: bold;
+
+            color: var(--primary);
+
+        }
+
+
+
+        .quote {
+
+            font-style: italic;
+
+            padding: 15px;
+
+            background: #f8f9fa;
+
+            border-left: 4px solid var(--secondary);
+
+            margin: 15px 0;
+
+        }
+
+
+
+        .quote-author {
+
+            text-align: right;
+
+            font-weight: bold;
+
+            margin-top: 10px;
+
+            color: var(--primary);
+
+        }
+
+
+
+        .image-gallery {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+            gap: 15px;
+
+            margin: 20px 0;
+
+        }
+
+
+
+        .gallery-item {
+
+            border-radius: 8px;
+
+            overflow: hidden;
+
+            box-shadow: var(--shadow);
+
+            transition: var(--transition);
+
+            cursor: pointer;
+
+        }
+
+
+
+        .gallery-item:hover {
+
+            transform: scale(1.03);
+
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+        }
+
+
+
+        .gallery-item img {
+
+            width: 100%;
+
+            height: 150px;
+
+            object-fit: cover;
+
+            display: block;
+
+        }
+
+
+
+        .gallery-caption {
+
+            padding: 10px;
+
+            background: white;
+
+            font-size: 0.8rem;
+
+            text-align: center;
+
+        }
+
+
+
+        
+
+.quiz-container {
+
+    font-family: Arial, sans-serif;
+
+    max-width: 800px;
+
+    margin: 0 auto;
+
+    padding: 20px;
+
+    background: #f9f9f9;
+
+    border-radius: 8px;
+
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+}
+
+
+
+.quiz-progress {
+
+    font-weight: bold;
+
+    margin-bottom: 15px;
+
+    color: #555;
+
+}
+
+
+
+.quiz-question {
+
+    margin-bottom: 20px;
+
+    padding: 15px;
+
+    background: white;
+
+    border-radius: 5px;
+
+}
+
+
+
+.quiz-options {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.quiz-option {
+
+    padding: 12px;
+
+    background: #e9e9e9;
+
+    border: none;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: background 0.3s;
+
+}
+
+
+
+.quiz-option:hover {
+
+    background: #ddd;
+
+}
+
+
+
+.quiz-option[data-correct="true"] {
+
+    border-left: 4px solid #4CAF50;
+
+}
+
+
+
+.quiz-navigation {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 20px;
+
+}
+
+
+
+.nav-button {
+
+    padding: 10px 20px;
+
+    background: #4CAF50;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+}
+
+
+
+.nav-button:disabled {
+
+    background: #cccccc;
+
+    cursor: not-allowed;
+
+}
+
+
+
+.quiz-solution {
+
+    margin-top: 20px;
+
+    padding: 15px;
+
+    background: #e8f5e9;
+
+    border-radius: 5px;
+
+    border-left: 4px solid #4CAF50;
+
+}
+
+
+
+.feedback {
+
+    display: none;
+
+    margin-top: 8px;
+
+    font-size: 0.9em;
+
+    color: #555;
+
+}
+
+.quiz-container {
+
+            background: #f8f9fa;
+
+            padding: 20px;
+
+            border-radius: 8px;
+
+            margin: 15px 0;
+
+        }
+
+        
+
+        #quiz-progress {
+
+            font-size: 0.9rem;
+
+            color: var(--primary);
+
+            margin-bottom: 10px;
+
+            font-weight: bold;
+
+        }
+
+        
+
+        .quiz-options {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin: 15px 0;
+
+        }
+
+        
+
+        .quiz-option {
+
+            background: var(--light);
+
+            border: 1px solid #ddd;
+
+            padding: 8px 15px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+
+        }
+
+        
+
+        .quiz-option:hover {
+
+            background: #dfe6e9;
+
+        }
+
+        
+
+        .quiz-option.selected {
+
+            background: var(--secondary);
+
+            color: white;
+
+            border-color: var(--secondary);
+
+        }
+
+        .quiz-option.correct {
+
+    background: var(--success);
+
+    color: white;
+
+    border-color: var(--success);
+
+}
+
+
+
+.quiz-option.incorrect {
+
+    background: var(--accent);
+
+    color: white;
+
+    border-color: var(--accent);
+
+}
+
+
+
+#quiz-next-btn {
+
+    display: block !important;
+
+    margin-top: 20px;
+
+}
+
+        .quiz-option.correct {
+
+            background: var(--success);
+
+            color: white;
+
+            border-color: var(--success);
+
+        }
+
+        
+
+        .quiz-option.incorrect {
+
+            background: var(--accent);
+
+            color: white;
+
+            border-color: var(--accent);
+
+        }
+
+        
+
+        .principle-definition {
+
+            background: white;
+
+            padding: 15px;
+
+            border-radius: 5px;
+
+            margin: 10px 0;
+
+            border-left: 4px solid var(--secondary);
+
+        }
+
+        
+
+        .principle-definition h5 {
+
+            margin-top: 0;
+
+            color: var(--primary);
+
+        }
+
+
+
+        .quote-highlight {
+
+            font-size: 1.2rem;
+
+            font-weight: bold;
+
+            color: var(--primary);
+
+            background-color: rgba(231, 76, 60, 0.1);
+
+            padding: 15px;
+
+            border-left: 4px solid var(--accent);
+
+            margin: 20px 0;
+
+            text-align: center;
+
+        }
+
+
+
+        .quote-highlight i {
+
+            color: var(--accent);
+
+            margin-right: 10px;
+
+        }
+
+
+
+        .show-solution-btn {
+
+            background: var(--secondary);
+
+            color: white;
+
+            border: none;
+
+            padding: 8px 15px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            margin-top: 10px;
+
+            transition: var(--transition);
+
+        }
+
+
+
+        .show-solution-btn:hover {
+
+            background: var(--primary);
+
+        }
+
+
+
+        .solution-content {
+
+            display: none;
+
+            padding: 15px;
+
+            background: #f8f9fa;
+
+            border-left: 4px solid var(--success);
+
+            margin-top: 10px;
+
+            border-radius: 5px;
+
+        }
+
+
+
+        /* Story Container Stile */
+
+        .story-container {
+
+            background: white;
+
+            border-radius: 8px;
+
+            padding: 15px;
+
+            margin: 20px 0;
+
+            box-shadow: var(--shadow);
+
+            border-left: 4px solid var(--secondary);
+
+        }
+
+
+
+        .story-container h4 {
+
+            color: var(--primary);
+
+            margin-top: 0;
+
+            border-bottom: 2px solid var(--light);
+
+            padding-bottom: 8px;
+
+        }
+
+
+
+        .story-container img {
+
+            max-width: 100%;
+
+            height: auto;
+
+            border-radius: 5px;
+
+            margin: 10px 0;
+
+        }
+
+
+
+        /* Navigation Buttons */
+
+        .solution-navigation {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: 20px;
+
+        }
+
+
+
+        .nav-story-btn {
+
+            background: var(--secondary);
+
+            color: white;
+
+            border: none;
+
+            padding: 8px 15px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+        }
+
+
+
+        .nav-story-btn:hover {
+
+            background: var(--primary);
+
+        }
+
+
+
+        .nav-story-btn:disabled {
+
+            background: #bdc3c7;
+
+            cursor: not-allowed;
+
+        }
+
+
+
+        #story-counter {
+
+            font-weight: bold;
+
+            color: var(--primary);
+
+        }
+
+
+
+        .story-principles {
+
+            margin-top: 15px;
+
+            padding-top: 10px;
+
+            border-top: 1px dashed #ddd;
+
+        }
+
+
+
+        .principle-tag {
+
+            display: inline-block;
+
+            background: var(--light);
+
+            color: var(--primary);
+
+            padding: 3px 8px;
+
+            border-radius: 15px;
+
+            font-size: 0.8rem;
+
+            margin: 5px 5px 0 0;
+
+            border: 1px solid #ddd;
+
+        }
+
+
+
+        /* Beispiel-Auswahl */
+
+        .example-selection {
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .example-options {
+
+            display: flex;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+
+        .example-option {
+
+            cursor: pointer;
+
+            transition: var(--transition);
+
+            width: 180px;
+
+            text-align: center;
+
+            border-radius: 8px;
+
+            padding: 10px;
+
+            background: white;
+
+            box-shadow: var(--shadow);
+
+        }
+
+
+
+        .example-option:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+        }
+
+
+
+        .example-option img {
+
+            width: 100%;
+
+            height: 120px;
+
+            object-fit: cover;
+
+            border-radius: 5px;
+
+            border: 2px solid var(--light);
+
+        }
+
+
+
+        .example-option span {
+
+            display: block;
+
+            margin-top: 8px;
+
+            font-weight: bold;
+
+            color: var(--primary);
+
+        }
+
+
+
+        /* Beispiel-Anzeige */
+
+        .example-display {
+
+            margin-top: 20px;
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 8px;
+
+            box-shadow: var(--shadow);
+
+        }
+
+
+
+        .example-image {
+
+            max-width: 100%;
+
+            max-height: 300px;
+
+            object-fit: contain;
+
+            border-radius: 5px;
+
+            margin: 15px 0;
+
+            border: 1px solid #ddd;
+
+            display: block;
+
+        }.example-image {
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 15px 0;
+    border: 2px solid var(--light);
+}
+
+.timeline-visual {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.timeline-visual img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.infographic {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.infographic img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+
+        /* Prinzipien-Abschnitt */
+
+        .principles-section {
+
+            margin-top: 25px;
+
+            padding-top: 15px;
+
+            border-top: 1px solid var(--light);
+
+        }
+
+
+
+        .principle-options {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin: 15px 0;
+
+        }
+
+
+
+        .principle-btn {
+
+            background: var(--light);
+
+            border: 1px solid #ddd;
+
+            padding: 8px 12px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            transition: var(--transition);
+
+        }
+
+
+
+        .principle-btn:hover {
+
+            background: #dfe6e9;
+
+        }
+
+
+
+        .principle-explanation {
+
+            background: #f8f9fa;
+
+            padding: 15px;
+
+            border-radius: 5px;
+
+            border-left: 4px solid var(--secondary);
+
+            margin-top: 15px;
+
+            display: none;
+
+        }
+
+
+
+        .principle-explanation h5 {
+
+            color: var(--primary);
+
+            margin-top: 0;
+
+        }
+
+
+
+        /* Zuordnungsaufgabe */
+
+        .zuordnung-aufgabe {
+
+            padding: 15px;
+
+            background: #f8f9fa;
+
+            border-radius: 8px;
+
+        }
+
+
+
+        .zuordnung-optionen {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin: 15px 0;
+
+        }
+
+
+
+        /* Allgemeine Task-Styles */
+
+        .task-section {
+
+            background: white;
+
+            padding: 20px;
+
+            border-radius: 8px;
+
+            box-shadow: var(--shadow);
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .task-section h5 {
+
+            color: var(--primary);
+
+            border-bottom: 2px solid var(--light);
+
+            padding-bottom: 10px;
+
+            margin-top: 0;
+
+        }
+
+
+
+        /* Verbesserte Interaktionsstile */
+
+        .next-example-btn {
+
+            background: var(--secondary);
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 20px;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+
+            margin-top: 20px;
+
+            transition: var(--transition);
+
+            display: inline-block;
+
+        }
+
+
+
+        .next-example-btn:hover {
+
+            background: var(--primary);
+
+        }
+
+
+
+        .next-example-btn i {
+
+            margin-left: 8px;
+
+        }
+
+
+
+        /* Verbesserte Feedback-Stile */
+
+        .feedback {
+
+            padding: 15px;
+
+            border-radius: 5px;
+
+            margin-top: 15px;
+
+            display: none;
+
+        }
+
+
+
+        .feedback.correct {
+
+            background: #e8f5e9;
+
+            border-left: 4px solid var(--success);
+
+            display: block;
+
+        }
+
+
+
+        .feedback.incorrect {
+
+            background: #ffebee;
+
+            border-left: 4px solid var(--accent);
+
+            display: block;
+
+        }
+
+
+
+        /* Responsive Anpassungen für den Bereich 2.1.9 */
+
+        @media (max-width: 768px) {
+
+            .example-options {
+
+                justify-content: center;
+
+            }
+
+            
+
+            .example-option {
+
+                width: 150px;
+
+            }
+
+            
+
+            .principle-options, .zuordnung-optionen {
+
+                justify-content: center;
+
+            }
+
+            
+
+            .example-display {
+
+                padding: 15px;
+
+            }
+
+            
+
+            .example-image {
+
+                max-height: 200px;
+
+            }
+
+        } <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geschichte(n) - Interaktives Lernportal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* ... bestehende CSS-Regeln ... */
+
+        /* 1. Visuelle Feedback-Animationen */
+        @keyframes correct-pulse {
+            0% { background-color: var(--success); }
+            50% { background-color: #58d68d; }
+            100% { background-color: var(--success); }
+        }
+
+        .quiz-option.correct {
+            animation: correct-pulse 0.6s ease;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+
+        /* 5. Tooltips */
+        .principle-btn {
+            position: relative;
+        }
+
+        .principle-btn:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            pointer-events: none;
+        }
+
+        /* 6. Animiertes Einblenden */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden-content, .principle-explanation {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            /* ... bestehende Media Queries ... */
+
+            /* 2. Mobile-Optimierung */
+            @media (max-width: 480px) {
+                .triftigkeit-btn, .zuordnung-optionen button {
+                    width: 100%;
+                    padding: 12px;
+                    font-size: 0.9rem;
+                }
+                .zuordnung-optionen {
+                    gap: 8px;
+                }
+            }
+        }
+
+        /* 7. Dunkelmodus */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #ecf0f1;
+                --secondary: #3498db;
+                --dark: #2c3e50;
+                --light: #34495e;
+            }
+            
+            body {
+                background: #2c3e50;
+                color: #ecf0f1;
+            }
+            
+            .nav-card, .section {
+                background: #34495e;
+            }
+            
+            .principle-explanation {
+                background: #2c3e50;
+            }
+        }
+.example-image {
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 15px 0;
+    border: 2px solid var(--light);
+}
+
+.timeline-visual {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.timeline-visual img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.infographic {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    align-items: center;
+}
+
+.infographic img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+}
+.principles-row {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 10px 0;
+    margin: 20px 0;
+    scrollbar-width: thin;
+}
+
+.principle-box {
+    min-width: 160px;
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 220px;
+}
+
+.principle-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.principle-icon {
+    font-size: 1.8rem;
+    color: var(--secondary);
+    margin-bottom: 10px;
+}
+
+.principle-box h6 {
+    margin: 5px 0;
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+.principle-box p {
+    font-size: 0.8rem;
+    color: #666;
+    margin: 0 0 10px 0;
+}
+
+.principle-box .dropzone {
+    min-height: 60px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 10px;
+}
+
+.text-task-container {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.puzzle-piece {
+    background: var(--light);
+    padding: 15px;
+    border-radius: 8px;
+    cursor: grab;
+    transition: all 0.3s ease;
+}
+
+.puzzle-piece:hover {
+    background: #e0e0e0;
+}
+
+.feedback-container {
+    margin-top: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.feedback-correct {
+    color: var(--success);
+}
+
+.feedback-incorrect {
+    color: var(--accent);
+}
+
+.detailed-explanation {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.explanation-btn {
+    background: transparent;
+    color: var(--secondary);
+    border: none;
+    padding: 8px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+    .principles-row {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .principle-box {
+        min-width: calc(50% - 20px);
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .principle-box {
+        min-width: 100%;
+    }
+}
+
+/* Quiz-Option Stile */
+.quiz-option {
+    background: var(--light);
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+    margin: 5px;
+}
+
+.quiz-option:hover {
+    background: #dfe6e9;
+}
+
+.quiz-option.selected {
+    background: var(--secondary);
+    color: white;
+    border-color: var(--secondary);
+}
+/* ===== Public History: Drag-and-Drop ===== */
+.methoden-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+.methoden-table th, .methoden-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+.methoden-table th {
+    background-color: var(--light);
+}
+.drag-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+}
+.drag-item {
+    background: var(--light);
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: grab;
+    transition: var(--transition);
+}
+.drag-item:hover {
+    background: #dfe6e9;
+}
+.dropzone {
+    min-height: 40px;
+    background: #f8f9fa;
+    border: 2px dashed #ccc;
+    transition: var(--transition);
+}
+.dropzone:hover {
+    background: #e9f5ff;
+}
+.check-btn {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.check-btn:hover {
+    background: var(--primary);
+}
+
+/* ===== Public History: Fallbeispiel-Navigation ===== */
+.example-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 15px 0;
+}
+.nav-example-btn {
+    background: var(--light);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.nav-example-btn:hover {
+    background: #dfe6e9;
+}
+#example-counter {
+    font-weight: bold;
+    color: var(--primary);
+}
+.example-content {
+    display: none;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+.example-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="container">
+
+            <h1><i class="fas fa-landmark"></i> Geschichte(n)</h1>
+
+            <p>Entdecken Sie die Vergangenheit und ihre Bedeutung für die Gegenwart</p>
+
+        </div>
+
+    </header>
+
+
+
+    <div class="container">
+
+        <div class="main-nav">
+
+            <!-- Karte 1: Wozu Geschichte? -->
+
+            <div class="nav-card" onclick="openModal('modal-wozu')">
+
+                <div class="nav-card-image" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+
+                <div class="nav-card-content">
+
+                    <h3>Wozu Geschichte?</h3>
+
+                    <p>Erfahren Sie, warum das Studium der Geschichte für unser heutiges Leben von entscheidender Bedeutung ist.</p>
+
+                    <span class="btn">Mehr erfahren</span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Karte 2: Was ist Geschichte? -->
+
+            <div class="nav-card" onclick="openModal('modal-was-ist')">
+
+                <div class="nav-card-image" style="background-image: url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+
+                <div class="nav-card-content">
+
+                    <h3>Was ist Geschichte?</h3>
+
+                    <p>Entdecken Sie die verschiedenen Perspektiven und Definitionen von Geschichte und Geschichtsschreibung.</p>
+
+                    <span class="btn">Mehr erfahren</span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Karte 3: Auswirkungen -->
+
+            <div class="nav-card" onclick="openModal('modal-auswirkungen')">
+
+                <div class="nav-card-image" style="background-image: url('https://images.unsplash.com/photo-1451188502541-13943edb6acb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+
+                <div class="nav-card-content">
+
+                    <h3>Auswirkungen der Geschichte</h3>
+
+                    <p>Untersuchen Sie, wie Geschichte unser Denken, Fühlen und Handeln beeinflusst.</p>
+
+                    <span class="btn">Mehr erfahren</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Modal für "Wozu Geschichte?" -->
+
+    <div id="modal-wozu" class="modal">
+
+        <div class="modal-content active">
+
+            <div class="modal-header">
+
+                <h2><i class="fas fa-question-circle"></i> Wozu Geschichte?</h2>
+
+                <button class="close-modal" onclick="closeModal('modal-wozu')">&times;</button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">Einführung</h3>
+
+                    <div class="content active">
+
+                        <p>Die Geschichte(n) – oder besser gesagt – die Vorstellungen von der Vergangenheit, beeinflussen das Denken, Fühlen und Handeln eines jedes Menschen. Verändert man die Geschichte, so verändert sich die Zukunft. Bspw. hat die russische Regierung die Schulbücher so umgeschrieben, dass die Ansprüche auf die heutige Ukraine als legitim erscheinen. Mit dem Ziel, dass sich mehr für den Einsatz an der Front melden. Auch wenn diese Geschichte einer wissenschaftlichen Untersuchung nicht stand hält, so hat sie doch einen Effekt auf das jeweilige Individuum, welches in der Schule sitzt.</p>
+
+                    </div>
+
+                </div>
+
+<!-- 1.1 Resilienz gegen Manipulation -->
+<div class="section">
+    <h3 onclick="toggleSection(this)">1.1 Resilienz gegen Manipulation</h3>
+    <div class="content">
+        <p>Geschichtsunterricht spielt eine entscheidende Rolle dabei, Schülerinnen und Schüler gegen Manipulationen zu wappnen und ihre Resilienz zu stärken. Indem er kritisches Denken fördert, ermöglicht er es den Lernenden, Informationen zu hinterfragen und die Absichten hinter bestimmten Darstellungen zu erkennen.</p>
+        
+        <button class="toggle-btn" onclick="toggleContent('resilienz-beispiel1')">
+            <i class="fas fa-chevron-right"></i> Beispiel: Propaganda im Dritten Reich
+        </button>
+        <div id="resilienz-beispiel1" class="hidden-content">
+            <div class="example-box">
+                <div class="example-title"><i class="fas fa-lightbulb"></i> Propaganda im Dritten Reich</div>
+                <p>Im Geschichtsunterricht können Schülerinnen und Schüler untersuchen, wie die Nationalsozialisten Propaganda nutzten, um die öffentliche Meinung zu beeinflussen und ihre Ideologie zu verbreiten. Filme, Plakate und Reden wurden gezielt eingesetzt, um Feindbilder zu schaffen und die Bevölkerung zu manipulieren.</p>
+                <p><strong>Lernziel:</strong> Durch die Analyse dieser Propagandamethoden lernen Schülerinnen und Schüler, wie visuelle und rhetorische Mittel eingesetzt werden, um Meinungen zu formen. Sie entwickeln die Fähigkeit, solche Techniken in modernen Medien zu erkennen und kritisch zu hinterfragen, was sie vor Manipulationen schützt.</p>
+            </div>
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleContent('resilienz-beispiel2')">
+            <i class="fas fa-chevron-right"></i> Beispiel: Fake News in der heutigen Zeit
+        </button>
+        <div id="resilienz-beispiel2" class="hidden-content">
+            <div class="example-box">
+                <div class="example-title"><i class="fas fa-lightbulb"></i> Fake News in der heutigen Zeit</div>
+                <p>Ein aktuelles Beispiel wäre die Untersuchung von Fake News in sozialen Medien. Schülerinnen und Schüler können lernen, wie falsche Informationen verbreitet werden, um politische oder wirtschaftliche Interessen zu fördern.</p>
+                <p><strong>Lernziel:</strong> Indem sie die Struktur und Verbreitung von Fake News analysieren, lernen Schülerinnen und Schüler, skeptisch gegenüber unbestätigten Informationen zu sein und die Quellen von Nachrichten zu überprüfen, um Manipulationen zu widerstehen.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                <!-- 1.2 Anthropologische Konstanten -->
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">1.2 Anthropologische Konstanten</h3>
+
+                    <div class="content">
+
+                        <p>Geschichte bietet die Möglichkeit, anthropologische Konstanten abzuleiten – also grundlegende menschliche Verhaltensweisen und Muster zu erkennen, die sich durch die Geschichte ziehen.</p>
+
+                        
+
+                        <button class="toggle-btn" onclick="toggleContent('anthropo-beispiel1')">
+
+                            <i class="fas fa-chevron-right"></i> Beispiel: Reaktionen auf Pandemien
+
+                        </button>
+
+                        <div id="anthropo-beispiel1" class="hidden-content">
+
+                            <div class="example-box">
+
+                                <div class="example-title"><i class="fas fa-virus"></i> Reaktionen auf Pandemien</div>
+
+                                <p>Die Untersuchung von gesellschaftlichen Reaktionen auf historische Pandemien, wie die Spanische Grippe von 1918, zeigt, wie Menschen in Krisenzeiten handeln. Maßnahmen wie Quarantäne, soziale Distanzierung und die Suche nach medizinischen Lösungen sind Konstanten, die sich auch in der COVID-19-Pandemie wiederfinden.</p>
+
+                                <p><strong>Lernziel:</strong> Schülerinnen und Schüler erkennen Muster im menschlichen Verhalten, wie die Tendenz zur Zusammenarbeit oder zur Panik in Krisenzeiten. Dieses Verständnis hilft ihnen, aktuelle Reaktionen besser einzuordnen und auf zukünftige Herausforderungen vorbereitet zu sein.</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- 1.3 Verständnis der Gegenwart -->
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">1.3 Verständnis der Gegenwart</h3>
+
+                    <div class="content">
+
+                        <p>Der Historiker E.H. Carr betonte in seinem Buch "Was ist Geschichte?" die Bedeutung des Verständnisses der Vergangenheit, um die Gegenwart zu begreifen. Er argumentierte, dass Geschichte ein kontinuierlicher Dialog zwischen der Gegenwart und der Vergangenheit ist.</p>
+
+                        
+
+                        <button class="toggle-btn" onclick="toggleContent('gegenwart-beispiel')">
+
+                            <i class="fas fa-chevron-right"></i> Beispiel: Französische Revolution
+
+                        </button>
+
+                        <div id="gegenwart-beispiel" class="hidden-content">
+
+                            <div class="example-box">
+
+                                <div class="example-title"><i class="fas fa-landmark"></i> Die Französische Revolution (1789-1799)</div>
+
+                                <p>Die Französische Revolution führte zur Entwicklung moderner Demokratien und Bürgerrechte. Viele politische Systeme und Freiheitsrechte, die wir heute genießen, haben ihre Wurzeln in dieser Zeit. Das Verständnis dieser Ereignisse hilft zu verstehen, warum wir heute in demokratischen Gesellschaften leben.</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- 1.4 Lernen aus der Vergangenheit -->
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">1.4 Lernen aus der Vergangenheit</h3>
+
+                    <div class="content">
+
+                        <p>Der Geschichtsdidaktiker Jörn Rüsen hat in seinen Arbeiten, wie "Historisches Lernen", die Bedeutung des Lernens aus der Geschichte hervorgehoben. Er betont, dass das Verstehen historischer Prozesse und Fehler entscheidend für die Vermeidung ähnlicher Fehler in der Zukunft ist.</p>
+
+                        
+
+                        <button class="toggle-btn" onclick="toggleContent('lernen-beispiel')">
+
+                            <i class="fas fa-chevron-right"></i> Beispiel: Weltwirtschaftskrise 1929
+
+                        </button>
+
+                        <div id="lernen-beispiel" class="hidden-content">
+
+                            <div class="example-box">
+
+                                <div class="example-title"><i class="fas fa-chart-line"></i> Die Weltwirtschaftskrise von 1929</div>
+
+                                <p>Die Weltwirtschaftskrise von 1929 lehrt uns die Gefahren unregulierter Finanzmärkte. Durch das Studium dieser Krise können wir lernen, wie wichtig wirtschaftliche Regulierung und Vorsichtsmaßnahmen sind, um zukünftige Wirtschaftskrisen zu verhindern.</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- 1.5 Kulturelles Bewusstsein -->
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">1.5 Kulturelles Bewusstsein</h3>
+
+                    <div class="content">
+
+                        <p>Peter Burke, ein bekannter Kulturhistoriker, hat in seinen Studien zur Kulturgeschichte die Rolle der Geschichte bei der Förderung des kulturellen Bewusstseins und der Wertschätzung von Vielfalt hervorgehoben.</p>
+
+                        
+
+                        <button class="toggle-btn" onclick="toggleContent('kultur-beispiel')">
+
+                            <i class="fas fa-chevron-right"></i> Beispiel: Alte Zivilisationen
+
+                        </button>
+
+                        <div id="kultur-beispiel" class="hidden-content">
+
+                            <div class="example-box">
+
+                                <div class="example-title"><i class="fas fa-monument"></i> Alte Zivilisationen</div>
+
+                                <p>Das Studium der alten Zivilisationen, wie der Maya oder Ägypter, zeigt uns die Vielfalt menschlicher Kulturen und Errungenschaften. Dies fördert Respekt und Verständnis für unterschiedliche kulturelle Hintergründe und Traditionen.</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- 1.6 Identitätsbildung -->
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">1.6 Identitätsbildung</h3>
+
+                    <div class="content">
+
+                        <p>Der Historiker Eric Hobsbawm hat in "Nationen und Nationalismus" die Rolle der Geschichte bei der Bildung nationaler Identitäten und des Gemeinschaftsgefühls diskutiert.</p>
+
+                        
+
+                        <button class="toggle-btn" onclick="toggleContent('identitaet-beispiel')">
+
+                            <i class="fas fa-chevron-right"></i> Beispiel: Deutsche Wiedervereinigung
+
+                        </button>
+
+                        <div id="identitaet-beispiel" class="hidden-content">
+
+                            <div class="example-box">
+
+                                <div class="example-title"><i class="fas fa-flag"></i> Deutsche Wiedervereinigung 1990</div>
+
+                                <p>Die deutsche Wiedervereinigung 1990 ist ein wichtiger Teil der deutschen Identität. Das Verständnis dieser Ereignisse hilft Schülerinnen zu verstehen, wie die Vergangenheit die nationale Identität und das Gemeinschaftsgefühl beeinflusst.</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- 1.7 Kritisches Denken -->
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">1.7 Kritisches Denken</h3>
+
+                    <div class="content">
+
+                        <p>In "The Historian's Craft" betont Marc Bloch, ein führender Historiker der Annales-Schule, die Bedeutung der kritischen Analyse von Quellen und das Entwickeln von Fähigkeiten zur kritischen Bewertung von Informationen.</p>
+
+                        
+
+                        <button class="toggle-btn" onclick="toggleContent('kritisch-beispiel')">
+
+                            <i class="fas fa-chevron-right"></i> Beispiel: Propaganda im Zweiten Weltkrieg
+
+                        </button>
+
+                        <div id="kritisch-beispiel" class="hidden-content">
+
+                            <div class="example-box">
+
+                                <div class="example-title"><i class="fas fa-propaganda"></i> Propaganda im Zweiten Weltkrieg</div>
+
+                                <p>Die Analyse von Propaganda während des Zweiten Weltkriegs lehrt Schülerinnen, wie wichtig es ist, Informationen kritisch zu hinterfragen und die Absichten hinter Nachrichten zu verstehen.</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- 1.8 Demokratisches Bewusstsein -->
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">1.8 Demokratisches Bewusstsein</h3>
+
+                    <div class="content">
+
+                        <p>Der Geschichtsdidaktiker Karl-Ernst Jeismann hat in seinen Arbeiten die Rolle der Geschichte bei der Förderung des demokratischen Bewusstseins und der politischen Bildung betont.</p>
+
+                        
+
+                        <button class="toggle-btn" onclick="toggleContent('demokratie-beispiel')">
+
+                            <i class="fas fa-chevron-right"></i> Beispiel: Bürgerrechtsbewegung USA
+
+                        </button>
+
+                        <div id="demokratie-beispiel" class="hidden-content">
+
+                            <div class="example-box">
+
+                                <div class="example-title"><i class="fas fa-fist-raised"></i> Bürgerrechtsbewegung in den USA</div>
+
+                                <p>Die Bürgerrechtsbewegung in den USA in den 1960er Jahren zeigt, wie Menschen durch Proteste und Engagement für Gleichheit und Gerechtigkeit kämpfen können. Dies inspiriert Schülerinnen, sich aktiv an der Gesellschaft zu beteiligen und für ihre Rechte einzutreten.</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- 1.9 Verständnis globaler Zusammenhänge -->
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">1.9 Verständnis globaler Zusammenhänge</h3>
+
+                    <div class="content">
+
+                        <p>Der Historiker Jürgen Osterhammel hat in "Die Verwandlung der Welt" die Bedeutung der Globalgeschichte und der Verbindungen zwischen verschiedenen Kulturen und Regionen hervorgehoben.</p>
+
+                        
+
+                        <button class="toggle-btn" onclick="toggleContent('global-beispiel')">
+
+                            <i class="fas fa-chevron-right"></i> Beispiel: Seidenstraße
+
+                        </button>
+
+                        <div id="global-beispiel" class="hidden-content">
+
+                            <div class="example-box">
+
+                                <div class="example-title"><i class="fas fa-route"></i> Seidenstraße</div>
+
+                                <p>Der Handel entlang der Seidenstraße verband Asien, Europa und Afrika über Jahrhunderte hinweg. Das Studium dieser Handelswege zeigt, wie Kulturen und Technologien ausgetauscht wurden und wie globalisierte Verbindungen schon immer Teil der Geschichte waren.</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- 1.10 Inspiration und Motivation -->
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">1.10 Inspiration und Motivation</h3>
+
+                    <div class="content">
+
+                        <p>Howard Zinn, in "A People's History of the United States", zeigt, wie Geschichten von Widerstand und sozialem Wandel inspirieren und motivieren können, sich für Gerechtigkeit und Veränderung einzusetzen.</p>
+
+                        
+
+                        <button class="toggle-btn" onclick="toggleContent('inspiration-beispiel')">
+
+                            <i class="fas fa-chevron-right"></i> Beispiel: Malala Yousafzai
+
+                        </button>
+
+                        <div id="inspiration-beispiel" class="hidden-content">
+
+                            <div class="example-box">
+
+                                <div class="example-title"><i class="fas fa-user-graduate"></i> Malala Yousafzai</div>
+
+                                <p>Die Geschichte von Malala Yousafzai, die sich für das Recht auf Bildung für Mädchen einsetzt, inspiriert Schülerinnen weltweit, für ihre Rechte einzutreten und zeigt, dass auch junge Menschen großen Einfluss auf die Welt haben können.</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Modal für "Was ist Geschichte?" -->
+
+    <div id="modal-was-ist" class="modal">
+
+        <div class="modal-content active">
+
+            <div class="modal-header">
+
+                <h2><i class="fas fa-book"></i> Was ist Geschichte?</h2>
+
+                <button class="close-modal" onclick="closeModal('modal-was-ist')">&times;</button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">Einführung</h3>
+
+                    <div class="content active">
+
+                        <p>Zu einem Thema kann es 1000 Geschichten geben, die sich gravierend unterscheiden. Je nachdem welche Perspektive eingenommen, Quellen berücksichtigt oder Schwerpunkte gesetzt werden. Diese Merkmale treffen auf jede Geschichte zu. Trotzdem kann man nicht einfach erzählen was man möchte! Eine wissenschaftliche oder haltbare Geschichte muss sich den drei Trifftigkeitsprüfungen stellen. Und genau hier lassen sich die Unterschiede zwischen den Geschichten herausstellen.</p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="section">
+
+                    <h3 onclick="toggleSection(this)">2.1 Die Gemeinsamkeit einer jeden Geschichte</h3>
+
+                    <div class="content">
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.1.1 Retrospektivität</h4>
+
+                            <div class="content">
+
+                                <p>Wir betrachten die Vergangenheit immer aus der Gegenwart heraus, also "ex post". Das bedeutet, dass die Vergangenheit nur durch historische Erzählungen präsent ist.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.1.2 Perspektivität</h4>
+
+                            <div class="content">
+
+                                <p>Diese Betrachtung erfolgt immer aus einer bestimmten Perspektive der Gegenwart. Das bedeutet, dass unsere Sichtweise von unserem Standort und unseren Erfahrungen beeinflusst wird. Es gibt die Perspektivität von Quellen, Historikern und Rezipienten. Ob diese Perspektive haltbar ist, wird durch intersubjektive Prüfungen in empirischer, narrativer und normativer Hinsicht (Triftigkeitsprüfung) entschieden.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.1.3 Partikularität</h4>
+
+                            <div class="content">
+
+                                <p>Definition: Historische Erkenntnisse sind immer nur Ausschnitte der gesamten Vergangenheit. Sie sind nicht vollständig und umfassen nur Teile der Geschichte.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.1.4 Selektivität</h4>
+
+                            <div class="content">
+
+                                <p>Nur bestimmte Informationen aus Quellen sind für die Erforschung relevant. Diese Auswahl wird durch die Komplexität der Vergangenheit und die Fragen, die wir an sie stellen, beeinflusst.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.1.5 Partialität</h4>
+
+                            <div class="content">
+
+                                <p>Quellen zeigen immer nur einen Teil der Vergangenheit. Nur ein Teil der Quellen ist bis heute erhalten geblieben.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.1.6 Narrativität</h4>
+
+                            <div class="content">
+
+                                <p>Narrativität in der Geschichte bezieht sich auf die Art und Weise, wie historische Ereignisse und Prozesse in Form von Erzählungen oder Geschichten dargestellt werden. Dieses Prinzip betont, dass Geschichte nicht nur eine Aneinanderreihung von Fakten ist, sondern eine strukturierte Erzählung, die diesen Fakten Bedeutung und Zusammenhang verleiht.</p>
+
+                                <p><strong>Quelle:</strong> Hayden White, "Metahistory" (1973): White argumentiert, dass alle historischen Darstellungen narrative Strukturen aufweisen. Er betont, dass Historiker nicht nur Ereignisse berichten, sondern diese in eine erzählerische Form bringen, die bestimmten literarischen und rhetorischen Mustern folgt. Diese Erzählstrukturen helfen, die Vergangenheit verständlich und bedeutsam zu machen.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.1.7 Konstruktivität</h4>
+
+                            <div class="content">
+
+                                <p><strong>Fachsprache:</strong> Jede historische Erzählung hat einen synthetischen Charakter. Geschichten entstehen durch einen konstruktiven Reflexionsakt. Durch selektive Synthese werden retrospektiv bedeutungsvolle Sinnzusammenhänge über Zeiterfahrungen konstruiert. Diese haben aufgrund der Partikularität und Retrospektivität einen hypothetischen Charakter und sind daher bruchhaft.</p>
+
+                                <p><strong>Einfache Erklärung:</strong> Historische Geschichten werden nicht einfach nur erzählt, sie werden aktiv gestaltet. Wenn Historiker über die Vergangenheit berichten, wählen sie bestimmte Ereignisse und Informationen aus und setzen sie zu einer Geschichte zusammen. Diese Geschichten entstehen durch das Nachdenken und Zusammenfügen von Informationen aus der Vergangenheit, um ihnen Sinn zu geben. Da Historiker nur einen Teil der Ereignisse auswählen und aus der Perspektive der Gegenwart auf die Vergangenheit blicken, sind diese Geschichten oft unvollständig und basieren auf Annahmen.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.1.8 Standortgebundenheit</h4>
+
+                            <div class="content">
+
+                                <p>Standortgebundenheit in der Geschichte bezieht sich auf die Idee, dass die Perspektive, aus der historische Ereignisse betrachtet und interpretiert werden, stark von der Position des Betrachters beeinflusst wird. Diese Position umfasst nicht nur den geografischen Standort, sondern auch den kulturellen, sozialen und zeitlichen Kontext des Historikers oder der Historikerin.</p>
+
+                                
+
+                                <div class="sub-subsection">
+
+                                    <h5 onclick="toggleSubSubsection(this)">2.1.8.1 Geografische Perspektive</h5>
+
+                                    <div class="content">
+
+                                        <p>Historiker aus unterschiedlichen Regionen der Welt können dieselben historischen Ereignisse unterschiedlich interpretieren, basierend auf ihrer geografischen Lage und den damit verbundenen Erfahrungen und Interessen.</p>
+
+                                    </div>
+
+                                </div>
+
+                                
+
+                                <div class="sub-subsection">
+
+                                    <h5 onclick="toggleSubSubsection(this)">2.1.8.2 Kultureller und sozialer Kontext</h5>
+
+                                    <div class="content">
+
+                                        <p>Die kulturellen und sozialen Hintergründe des Historikers beeinflussen, welche Aspekte der Geschichte als wichtig erachtet werden und wie diese interpretiert werden. Zum Beispiel könnten Historiker aus verschiedenen Kulturen unterschiedliche Werte und Normen haben, die ihre Interpretation der Geschichte beeinflussen.</p>
+
+                                    </div>
+
+                                </div>
+
+                                
+
+                                <div class="sub-subsection">
+
+                                    <h5 onclick="toggleSubSubsection(this)">2.1.8.3 Zeitlicher Kontext</h5>
+
+                                    <div class="content">
+
+                                        <p>Die Zeit, in der ein Historiker lebt, beeinflusst ebenfalls die Interpretation der Vergangenheit. So können sich historische Interpretationen im Laufe der Zeit ändern, da neue Informationen verfügbar werden oder sich gesellschaftliche Werte und Perspektiven ändern.</p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+<div class="subsection">
+<div class="section">
+    <h3 onclick="toggleSection(this)">Aufgaben</h3>
+    <div class="content active">
+        <!-- Aufgabe 1 -->
+        <div class="subsection">
+            <h4 onclick="toggleSubsection(this)">Aufgabe 1: Beispiele analysieren</h4>
+            <div class="content">
+                <div class="example-selection">
+                    <p>Wählen Sie ein historisches Beispiel aus:</p>
+                    <div class="example-options">
+                        <div class="example-option" onclick="loadExample(0)">
+                            <span>Spanische Grippe</span>
+                        </div>
+                        <div class="example-option" onclick="loadExample(1)">
+                            <span>Kolonialismus</span>
+                        </div>
+                        <div class="example-option" onclick="loadExample(2)">
+                            <span>Industrialisierung</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="example-display" class="example-display" style="display:none;">
+                    <div class="example-header">
+                        <h4 id="example-title"></h4>
+                        <p id="example-content"></p>
+                    </div>
+                    
+                    <div class="principles-section">
+                        <h5>Welche Prinzipien erkennen Sie?</h5>
+                        <div class="principle-options">
+                            <button class="principle-btn" onclick="showPrincipleExplanation('Standortgebundenheit')">Standortgebundenheit</button>
+                            <button class="principle-btn" onclick="showPrincipleExplanation('Konstruktivität')">Konstruktivität</button>
+                            <button class="principle-btn" onclick="showPrincipleExplanation('Selektivität')">Selektivität</button>
+                            <button class="principle-btn" onclick="showPrincipleExplanation('Perspektivität')">Perspektivität</button>
+                            <button class="principle-btn" onclick="showPrincipleExplanation('Partikularität')">Partikularität</button>
+                            <button class="principle-btn" onclick="showPrincipleExplanation('Narrativität')">Narrativität</button>
+                        </div>
+                        
+                        <div id="principle-explanation" class="principle-explanation" style="display:none;">
+                            <h5>Erklärung:</h5>
+                            <p id="explanation-text"></p>
+                        </div>
+                    </div>
+                    
+                    <button class="next-example-btn" onclick="loadNextExample()">
+                        Nächstes Beispiel <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aufgabe 2 -->
+        <div class="subsection">
+            <h4 onclick="toggleSubsection(this)">Aufgabe 2: Prinzipien erkennen</h4>
+            <div class="content">
+                <div class="quiz-container">
+                    <div id="quiz-progress">Beispiel 1 von 2</div>
+                    
+                    <div id="quiz-question-container" class="quiz-question">
+                        <!-- Beispiel und Aufgabe werden hier dynamisch eingefügt -->
+                    </div>
+                    
+                    <div id="quiz-options-container" class="quiz-options">
+                        <!-- Prinzipien werden hier dynamisch eingefügt -->
+                    </div>
+                    
+                    <div id="quiz-feedback" class="feedback correct">
+                        <!-- Erklärungen werden hier angezeigt -->
+                    </div>
+                    
+                    <button id="quiz-next-btn" class="next-btn" onclick="nextQuizExample()">
+                        Nächstes Beispiel
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aufgabe 3 (vorher 2.1.10) -->
+        <div class="subsection">
+            <h4 onclick="toggleSubsection(this)">Aufgabe 3: Interaktives Prinzipien-Puzzle</h4>
+            <div class="content">
+                <div class="task-section">
+                    <p>Ziehe den Text auf das Prinzip, das sich in diesem Beispiel am deutlichsten zeigt:</p>
+                    
+                    <!-- Horizontale Prinzipien-Reihe -->
+                    <div class="principles-row">
+                        <div class="principle-box" data-principle="Retrospektivität" 
+                             ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <div class="principle-icon"><i class="fas fa-history"></i></div>
+                            <h6>Retrospektivität</h6>
+                            <p>Heutige Sicht auf Vergangenes</p>
+                            <div class="dropzone"></div>
+                        </div>
+                        
+                        <div class="principle-box" data-principle="Perspektivität" 
+                             ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <div class="principle-icon"><i class="fas fa-binoculars"></i></div>
+                            <h6>Perspektivität</h6>
+                            <p>Standpunkt des Betrachters</p>
+                            <div class="dropzone"></div>
+                        </div>
+                        
+                        <div class="principle-box" data-principle="Selektivität" 
+                             ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <div class="principle-icon"><i class="fas fa-filter"></i></div>
+                            <h6>Selektivität</h6>
+                            <p>Auswahl von Aspekten</p>
+                            <div class="dropzone"></div>
+                        </div>
+                        
+                        <div class="principle-box" data-principle="Konstruktivität" 
+                             ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <div class="principle-icon"><i class="fas fa-puzzle-piece"></i></div>
+                            <h6>Konstruktivität</h6>
+                            <p>Aktive Gestaltung</p>
+                            <div class="dropzone"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Aktueller Text mit Navigation -->
+                    <div class="text-task-container">
+                        <div class="task-header">
+                            <span>Aufgabe <span id="current-task-num">1</span>/4</span>
+                            <button id="next-task-btn" class="small-btn" onclick="nextPuzzle()" disabled>
+                                Nächster Text <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div id="current-puzzle-piece" class="puzzle-piece" draggable="true" ondragstart="drag(event)">
+                            <!-- Wird dynamisch befüllt -->
+                        </div>
+                    </div>
+                    
+                    <!-- Feedback-Bereich -->
+                    <div id="puzzle-feedback" class="feedback-container">
+                        <div id="feedback-content" class="feedback-content"></div>
+                        <button id="show-explanation-btn" class="explanation-btn" onclick="showFullExplanation()">
+                            <i class="fas fa-lightbulb"></i> Alle Prinzipien analysieren
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Puzzle-Daten mit Beispielen und Erklärungen
+const puzzleExamples = [
+    {
+        text: "In den 1950er Jahren wurde die Weimarer Republik in westdeutschen Schulbüchern als 'Fehlgeburt' dargestellt. Heute wird sie als wichtiger Schritt in der Demokratiegeschichte gewürdigt.",
+        principle: "Retrospektivität",
+        explanation: {
+            main: "Die Bewertung ändert sich mit dem zeitlichen Abstand und neuen demokratischen Erfahrungen.",
+            alternatives: [
+                "Perspektivität: Auch relevant, da sich die politische Sichtweise geändert hat",
+                "Konstruktivität: Historiker gestalten aktiv neue Narrative",
+                "Selektivität: Unterschiedliche Aspekte werden betont"
+            ]
+        }
+    },
+    {
+        text: "Ein britischer Historiker beschreibt die Kolonialzeit als 'Entwicklungshilfe', während ein kenianischer Kollege von 'systematischer Ausbeutung' spricht.",
+        principle: "Perspektivität",
+        explanation: {
+            main: "Die nationale Herkunft bestimmt die grundlegend unterschiedliche Sichtweise.",
+            alternatives: [
+                "Retrospektivität: Beide schreiben aus heutiger Sicht",
+                "Konstruktivität: Beide bauen ihre Argumentation auf",
+                "Selektivität: Beide wählen passende Beispiele"
+            ]
+        }
+    },
+    {
+        text: "Eine Dokumentation über die 1960er zeigt nur Studentenproteste, nicht aber die Mehrheit der Bevölkerung, die konservativ lebte.",
+        principle: "Selektivität",
+        explanation: {
+            main: "Es wird eine spektakuläre, aber nicht repräsentative Facette ausgewählt.",
+            alternatives: [
+                "Perspektivität: Die Macher haben eine bestimmte Sichtweise",
+                "Konstruktivität: Die Auswahl gestaltet ein bestimmtes Bild",
+                "Retrospektivität: Heute erscheinen Proteste wichtiger"
+            ]
+        }
+    },
+    {
+        text: "Ein Historiker verbindet Erfindungen der Industrialisierung zu einer Fortschrittsgeschichte, ein anderer dieselben Fakten zu einer Leidensgeschichte der Arbeiter.",
+        principle: "Konstruktivität",
+        explanation: {
+            main: "Dieselben Fakten werden aktiv zu völlig unterschiedlichen Narrativen gestaltet.",
+            alternatives: [
+                "Perspektivität: Unterschiedliche weltanschauliche Standpunkte",
+                "Selektivität: Beide wählen passende Beispiele",
+                "Retrospektivität: Beide schreiben aus heutiger Sicht"
+            ]
+        }
+    }
+];
+
+let currentPuzzleIndex = 0;
+
+// Initialisiert das Puzzle beim Laden der Seite
+document.addEventListener('DOMContentLoaded', function() {
+    loadPuzzle(currentPuzzleIndex);
+});
+
+// Lädt ein Puzzle-Beispiel
+function loadPuzzle(index) {
+    const example = puzzleExamples[index];
+    document.getElementById('current-puzzle-piece').textContent = example.text;
+    document.getElementById('current-task-num').textContent = index + 1;
+    document.getElementById('next-task-btn').disabled = true;
+    document.getElementById('feedback-content').innerHTML = '';
+    document.querySelectorAll('.dropzone').forEach(zone => zone.innerHTML = '');
+}
+
+// Drag-and-Drop-Funktionen
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function drag(event) {
+    event.dataTransfer.setData("text", event.target.textContent);
+    event.dataTransfer.setData("source", "puzzle-piece");
+}
+
+function drop(event) {
+    event.preventDefault();
+    const data = event.dataTransfer.getData("text");
+    const source = event.dataTransfer.getData("source");
+    
+    // Nur behandeln, wenn es vom Puzzle-Piece kommt
+    if (source !== "puzzle-piece") return;
+    
+    const dropzone = event.target.closest('.dropzone');
+    if (dropzone) {
+        dropzone.innerHTML = `<div class="puzzle-piece">${data}</div>`;
+        checkSolution(dropzone.parentElement);
+    }
+}
+
+// Überprüft die Lösung
+function checkSolution(principleBox) {
+    const selectedPrinciple = principleBox.dataset.principle;
+    const currentExample = puzzleExamples[currentPuzzleIndex];
+    
+    let feedback = '';
+    
+    if (selectedPrinciple === currentExample.principle) {
+        feedback = `<p class="feedback-correct">✅ Richtig! ${currentExample.explanation.main}</p>`;
+    } else {
+        feedback = `<p class="feedback-incorrect">❌ Nicht ganz. Das Beispiel zeigt vor allem <strong>${currentExample.principle}</strong>.</p>`;
+    }
+    
+    document.getElementById('feedback-content').innerHTML = feedback;
+    document.getElementById('next-task-btn').disabled = false;
+}
+
+// Nächstes Puzzle laden
+function nextPuzzle() {
+    currentPuzzleIndex = (currentPuzzleIndex + 1) % puzzleExamples.length;
+    loadPuzzle(currentPuzzleIndex);
+}
+
+// Zeigt die vollständige Analyse aller Prinzipien
+function showFullExplanation() {
+    const currentExample = puzzleExamples[currentPuzzleIndex];
+    let explanation = `<h5>Analyse des Beispiels:</h5>`;
+    explanation += `<p><strong>Primäres Prinzip (${currentExample.principle}):</strong> ${currentExample.explanation.main}</p>`;
+    explanation += `<h5>Alternative Perspektiven:</h5><ul>`;
+    
+    currentExample.explanation.alternatives.forEach(alt => {
+        explanation += `<li>${alt}</li>`;
+    });
+    
+    explanation += `</ul>`;
+    document.getElementById('feedback-content').innerHTML = explanation;
+}
+
+// Toggle-Funktionen für die Aufgaben
+function toggleSection(header) {
+    header.classList.toggle('active');
+    const content = header.nextElementSibling;
+    content.classList.toggle('active');
+}
+
+function toggleSubsection(header) {
+    header.classList.toggle('active');
+    const content = header.nextElementSibling;
+    content.classList.toggle('active');
+}
+</script>
+    </div>
+</div>
+</div>
+ <div class="section">
+    <h3 onclick="toggleSection(this)">2.2 Die Unterschiede</h3>
+    <div class="content">
+        <div class="subsection">
+             
+                            <h4 onclick="toggleSubsection(this)">2.2.1 Empirische Triftigkeit</h4>
+
+                            <div class="content">
+
+                                <p>Empirische Triftigkeit bezieht sich auf die Übereinstimmung einer historischen Aussage mit den tatsächlichen Fakten und Ereignissen. Sie prüft, ob die beschriebenen Ereignisse wirklich so stattgefunden haben, wie behauptet.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.2.2 Normative Triftigkeit</h4>
+
+                            <div class="content">
+
+                                <p>Normative Triftigkeit bezieht sich darauf, ob eine Geschichte oder Aussage den Werten und Normen des Publikums entspricht und ob sie für dieses von Bedeutung ist. Sie fragt, ob das Publikum die Geschichte als relevant oder wichtig ansieht.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.2.3 Narrative Triftigkeit</h4>
+
+                            <div class="content">
+
+                                <p>Narrative Triftigkeit bezieht sich auf die innere Logik und Kohärenz einer Geschichte. Sie prüft, ob die erzählten Ereignisse und Zusammenhänge plausibel und nachvollziehbar sind.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.2.4 Anwendungsbeispiel</h4>
+
+                            <div class="content">
+
+                                <div class="example-box">
+
+                                    <p>"Eine Beispielgeschichte: M1</p>
+
+                                    <p>1954 wird in den USA das Unternehmen McDonalds gegründet. Kurz darauf wird Deutschland – Weltmeister.</p>
+
+                                    <p>1974 – der BicMac feiert seinen ersten Geburtstag in Deutschland. Kurz darauf wird Deutschland – Weltmeister.</p>
+
+                                    <p>1990 baut McDonalds das erste Restaurant in Ostdeutschland. Kurz darauf wird Deutschland – Weltmeister.</p>
+
+                                    <p>2010 führt McDonalds den McWrap ein. Den Rest können Sie sich ja vorstellen."</p>
+
+                                    <p>McDonalds Werbung 2010. Zitiert nach https://youtu.be/q6oS2x3JlSs (gelesen 31.5.2010).</p>
+
+                                    
+
+                                    <div class="triftigkeit-game">
+
+                                        <p>Wählen Sie die Art der Triftigkeitsprüfung aus:</p>
+
+                                        <div class="triftigkeit-options">
+
+                                            <button class="triftigkeit-btn" onclick="checkTriftigkeit('empirisch')">Empirische Triftigkeit</button>
+
+                                            <button class="triftigkeit-btn" onclick="checkTriftigkeit('normativ')">Normative Triftigkeit</button>
+
+                                            <button class="triftigkeit-btn" onclick="checkTriftigkeit('narrativ')">Narrative Triftigkeit</button>
+
+                                        </div>
+
+                                        
+
+                                        <div id="empirisch-feedback" class="feedback">
+
+                                            <p><strong>Anwendung:</strong> Um die empirische Triftigkeit zu überprüfen, müssen Beweise wie Dokumente, Aufzeichnungen oder andere Belege herangezogen werden, die die Richtigkeit der Aussage stützen. In unserem Beispiel würde das bedeuten, zu prüfen, ob McDonald's tatsächlich in den beschriebenen Jahren gegründet wurde oder neue Produkte einführte, und ob Deutschland in diesen Jahren Weltmeister wurde.</p>
+
+                                        </div>
+
+                                        
+
+                                        <div id="normativ-feedback" class="feedback">
+
+                                            <p><strong>Anwendung:</strong> Um die normative Triftigkeit zu erhöhen, sollte die Geschichte so erzählt werden, dass sie die Werte und Interessen des Publikums anspricht. Im Beispiel der McDonald's-Werbung wird die Begeisterung für die Fußball-WM genutzt, um eine emotionale Verbindung herzustellen, auch wenn die tatsächliche Bedeutung von McDonald's für den Erfolg der Nationalmannschaft fraglich ist.</p>
+
+                                        </div>
+
+                                        
+
+                                        <div id="narrativ-feedback" class="feedback">
+
+                                            <p><strong>Anwendung:</strong> Um die narrative Triftigkeit zu prüfen, muss der Zusammenhang zwischen den Ereignissen logisch erklärt werden. Im McDonald's-Beispiel müsste gezeigt werden, warum Innovationen bei McDonald's tatsächlich dazu führen könnten, dass Deutschland Weltmeister wird, und nicht nur ein Zufall sind. Dies könnte durch eine plausible Erklärung oder einen nachvollziehbaren Kausalzusammenhang erreicht werden.</p>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+</div>
+<div class="section">
+    <h3 onclick="toggleSection(this)">2.3 Formen von Geschichte</h3>
+    <div class="content">
+        <p>„Geschichte ist nicht Geschichte! Die Geschichtsschreibung hat sich im Laufe der Zeit in vielerlei Hinsicht verändert, sowohl in Bezug auf die Themen, die untersucht werden, als auch auf die Methoden und Perspektiven, die Historiker*innen anwenden.</p>
+        
+        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.3.1 Ideengeschichte</h4>
+
+                            <div class="content">
+
+                                <p><strong>Überblick:</strong> Ideengeschichte untersucht die Entwicklung und den Einfluss von Ideen und Denksystemen im Laufe der Zeit. Sie betrachtet, wie philosophische, religiöse und politische Ideen entstehen, sich verbreiten und verändern.</p>
+
+                                <p><strong>Quelle:</strong> Arthur O. Lovejoy, "The Great Chain of Being" (1936) – Lovejoy gilt als einer der Begründer der modernen Ideengeschichte und analysiert die Entwicklung der Idee der "großen Kette des Seins" in der westlichen Philosophie.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.3.2 Nationalgeschichte</h4>
+
+                            <div class="content">
+
+                                <p><strong>Überblick:</strong> Nationalgeschichte fokussiert sich auf die Geschichte eines bestimmten Landes oder einer Nation. Sie untersucht die Entwicklung nationaler Identitäten, politischer Strukturen und kultureller Besonderheiten.</p>
+
+                                <p><strong>Quelle:</strong> Eric Hobsbawm, "Nations and Nationalism since 1780" (1990) – Hobsbawm untersucht die Entstehung und Entwicklung von Nationen und Nationalismus in der modernen Welt.</p>
+
+                            </div>
+
+                        </div>
+
+                        
+
+                        <div class="subsection">
+
+                            <h4 onclick="toggleSubsection(this)">2.3.3 Volksgeschichte</h4>
+
+                            <div class="content">
+
+                                <p><strong>Überblick:</strong> Volksgeschichte wurde vorallem während des Nationalsozialismus betrieben. Hier stand "das deutsche Volk" im Fokus. Die Historiker*innen machten es sich zur Aufgabe eine Geschichte zu schreiben, welche mit den Werten der Nazis kompatible war. Das Volk sollte dabei als überlegene Rasse dargestellt werden, welches auf eine große gemeinsame Geschichte zurückblicken kann und die heutigen Vorstellungen rechtfertigt. </p>
+
+                                <p><strong>Quelle:</strong> Beispiel: "Deutsche Ostforschung" Diese pseudowissenschaftliche Richtung konstruierte eine angeblich „urdeutsche" Vergangenheit Osteuropas, um die NS-Expansionspolitik zu untermauern. Nach 1945 wurden viele dieser Thesen entlarvt, doch einige Autoren setzten ihre Karrieren in der BRD fort. Die NS-Geschichtsschreibung war keine seriöse Wissenschaft, sondern ein Propagandainstrument zur Legitimierung von Rassismus, Krieg und Völkermord.</p>
+
+                            </div></div>
+                        
+                        <div class="subsection">
+                            <h4 onclick="toggleSubsection(this)">2.3.4 Globalgeschichte</h4>
+                            <div class="content">
+                                <p><strong>Überblick:</strong> Globalgeschichte untersucht historische Prozesse, die über nationale und regionale Grenzen hinausgehen. Sie analysiert globale Verflechtungen und Interaktionen zwischen verschiedenen Kulturen und Gesellschaften.</p>
+                                <p><strong>Quelle:</strong> Jürgen Osterhammel, "The Transformation of the World: A Global History of the Nineteenth Century" (2009) – Osterhammel bietet eine umfassende Analyse der globalen Entwicklungen im 19. Jahrhundert.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <h4 onclick="toggleSubsection(this)">2.3.5 Postkoloniale Geschichte</h4>
+                            <div class="content">
+                                <p><strong>Überblick:</strong> Postkoloniale Geschichte analysiert die Auswirkungen des Kolonialismus auf ehemalige Kolonien und die kolonialen Mächte. Sie untersucht, wie koloniale Strukturen und Diskurse fortbestehen und hinterfragt eurozentrische Perspektiven.</p>
+                                <p><strong>Quelle:</strong> Edward Said, "Orientalism" (1978) – Said kritisiert die westliche Darstellung des Orients und legt den Grundstein für postkoloniale Studien.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <h4 onclick="toggleSubsection(this)">2.3.6 Mikrogeschichte</h4>
+                            <div class="content">
+                                <p><strong>Überblick:</strong> Mikrogeschichte fokussiert sich auf detaillierte Studien kleinerer Einheiten, wie Dörfer oder Einzelpersonen, um größere historische Prozesse zu verstehen. Sie betont die Bedeutung des Lokalen und Individuellen.</p>
+                                <p><strong>Quelle:</strong> Carlo Ginzburg, "The Cheese and the Worms" (1976) – Ginzburgs Werk ist ein klassisches Beispiel für Mikrogeschichte, das das Leben eines Müllers im 16. Jahrhundert untersucht.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <h4 onclick="toggleSubsection(this)">2.3.7 Sozialgeschichte</h4>
+                            <div class="content">
+                                <p><strong>Überblick:</strong> Sozialgeschichte untersucht gesellschaftliche Strukturen und Prozesse, wie Klassen, Schichten und soziale Bewegungen. Sie analysiert, wie soziale Faktoren die Geschichte beeinflussen.</p>
+                                <p><strong>Quelle:</strong> E.P. Thompson, "The Making of the English Working Class" (1963) – Thompson untersucht die Entstehung der Arbeiterklasse in England und ist ein zentraler Text der Sozialgeschichte.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <h4 onclick="toggleSubsection(this)">2.3.8 Ereignisgeschichte</h4>
+                            <div class="content">
+                                <p><strong>Überblick:</strong> Ereignisgeschichte konzentriert sich auf bedeutende historische Ereignisse und deren unmittelbare Auswirkungen. Sie analysiert die Ursachen und Konsequenzen spezifischer Ereignisse.</p>
+                                <p><strong>Quelle:</strong> Reinhart Koselleck, "Vergangene Zukunft: Zur Semantik geschichtlicher Zeiten" (1979) – Koselleck diskutiert die Bedeutung von Ereignissen in der historischen Zeit.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <h4 onclick="toggleSubsection(this)">2.3.9 Kulturgeschichte</h4>
+                            <div class="content">
+                                <p><strong>Überblick:</strong> Kulturgeschichte untersucht die kulturellen Aspekte der Vergangenheit, einschließlich Kunst, Religion, Wissenschaft und Alltagsleben. Sie betrachtet, wie kulturelle Praktiken und Symbole historische Entwicklungen prägen.</p>
+                                <p><strong>Quelle:</strong> Peter Burke, "What is Cultural History?" (2004) – Burke bietet eine Einführung in die Kulturgeschichte und ihre Methoden.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <h4 onclick="toggleSubsection(this)">2.3.10 Entwicklung der Geschichtsschreibung</h4>
+                            <div class="content">
+                                <p><strong>Von der politischen zur Sozialgeschichte:</strong></p>
+                                <p><strong>Früher Fokus:</strong> Frühe Geschichtsschreibung konzentrierte sich oft auf politische Ereignisse, große Persönlichkeiten und Kriege. Ein Beispiel ist Edward Gibbons "The History of the Decline and Fall of the Roman Empire" (1776), das sich stark auf politische und militärische Aspekte konzentriert.</p>
+                                <p><strong>Veränderung:</strong> Im 20. Jahrhundert verlagerte sich der Fokus zunehmend auf die Sozialgeschichte, die die Lebensbedingungen und Erfahrungen der breiten Bevölkerung untersucht. E.P. Thompsons "The Making of the English Working Class" (1963) ist ein Beispiel für diese Verschiebung, da es die Geschichte aus der Perspektive der Arbeiterklasse erzählt.</p>
+                                
+                                <p><strong>Entwicklung der Alltagsgeschichte:</strong></p>
+                                <p><strong>Früher Fokus:</strong> Traditionell wurden große historische Narrative von den Erfahrungen und Perspektiven der Eliten dominiert.</p>
+                                <p><strong>Veränderung:</strong> Die Alltagsgeschichte, vertreten durch Historiker wie Alf Lüdtke, begann, das Leben gewöhnlicher Menschen und deren alltägliche Erfahrungen in den Mittelpunkt zu stellen. Diese Perspektive hat das Verständnis von Geschichte erweitert, indem sie die Bedeutung des Alltagslebens betont.</p>
+                                
+                                <p><strong>Einführung der Mikrogeschichte:</strong></p>
+                                <p><strong>Früher Fokus:</strong> Historische Studien konzentrierten sich oft auf große nationale oder internationale Entwicklungen.</p>
+                                <p><strong>Veränderung:</strong> Die Mikrogeschichte, wie sie von Carlo Ginzburg in "The Cheese and the Worms" (1976) praktiziert wird, untersucht kleine, spezifische Einheiten, um größere historische Prozesse zu verstehen. Diese Methode hat gezeigt, wie detaillierte Studien einzelner Personen oder kleiner Gemeinschaften neue Einsichten in die Geschichte liefern können.</p>
+                                
+                                <p><strong>Aufstieg der Globalgeschichte:</strong></p>
+                                <p><strong>Früher Fokus:</strong> Die Geschichtsschreibung war oft national oder eurozentrisch ausgerichtet.</p>
+                                <p><strong>Veränderung:</strong> Die Globalgeschichte, wie in Jürgen Osterhammels "The Transformation of the World" (2009), betrachtet die Verflechtungen und Interaktionen zwischen verschiedenen Kulturen und Regionen. Dieser Ansatz hat das Verständnis globaler Prozesse und Verbindungen vertieft.</p>
+                                
+                                <p><strong>Einfluss der postkolonialen Theorie:</strong></p>
+                                <p><strong>Früher Fokus:</strong> Koloniale und eurozentrische Perspektiven dominierten die Geschichtsschreibung.</p>
+                                <p><strong>Veränderung:</strong> Die postkoloniale Theorie, angestoßen durch Werke wie Edward Saids "Orientalism" (1978), hat die Art und Weise verändert, wie Historiker über Kolonialismus und seine Auswirkungen nachdenken. Diese Perspektive hinterfragt traditionelle Narrative und hebt die Stimmen der ehemals Kolonisierten hervor.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <h4 onclick="toggleSubsection(this)">2.3.11 Zuordnungsaufgabe</h4>
+                            <div class="content">
+                                <div class="example-box">
+                                    <div id="zuordnung-container"></div>
+                                    <button class="next-btn" id="next-zuordnung-btn" onclick="nextZuordnung()">Nächste Aufgabe</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal für "Auswirkungen der Geschichte" -->
+    <div id="modal-auswirkungen" class="modal">
+        <div class="modal-content active">
+            <div class="modal-header">
+                <h2><i class="fas fa-chart-line"></i> Auswirkungen der Geschichte</h2>
+                <button class="close-modal" onclick="closeModal('modal-auswirkungen')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="section">
+                    <h3 onclick="toggleSection(this)">Einführung</h3>
+                    <div class="quote-highlight">
+    <i class="fas fa-quote-left"></i>
+    "Wer die Vergangenheit kontrolliert, kontrolliert die Zukunft. Wer die Gegenwart kontrolliert, kontrolliert die Vergangenheit."
+    <i class="fas fa-quote-right"></i>
+    <div style="text-align: right; font-style: italic;">- George Orwell, 1984</div>
+</div>
+<p> Geschichte ist nicht nur eine Sammlung von Fakten über die Vergangenheit, sondern hat konkrete Auswirkungen auf unsere Gegenwart und Zukunft. Sie prägt unser Denken, Fühlen und Handeln sowohl als Individuen als auch als Gesellschaft. Die Geschichtswissenschaft hat verschiedene Analyseinstrumente entwickelt, um diese Auswirkungen zu untersuchen und zu verstehen.</p>
+                    </div>
+                </div>
+<div class="content active">
+                        
+
+                <div class="section">
+                    <h3 onclick="toggleSection(this)">3.1 Analyseinstrumente</h3>
+                    <div class="content">
+                        <p>" Um die Auswirkungen von Geschichte auf unser Denken, Fühlen und Handeln oder in der Gesellschaft analysieren zu können, bedient sich die Geschichtswissenschaft verschiedener Analysemethoden. Diese werden im folgenden dargestellt.</p>
+                        <div class="subsection">
+    <h4 onclick="toggleSubsection(this)">3.1.1 Kollektives Gedächtnis</h4>
+    <div class="content">
+        <p>Theorie des kollektiven Gedächtnisses von Aleida Assmann: Aleida Assmann, eine deutsche Literaturwissenschaftlerin und Kulturwissenschaftlerin, entwickelte das Konzept des kollektiven Gedächtnisses, um zu erklären, wie Gemeinschaften und Gesellschaften Erinnerungen und Erfahrungen teilen und bewahren.</p>
+        
+        <button class="toggle-btn" onclick="toggleContent('individuelles-gedaechtnis')">
+            <i class="fas fa-chevron-right"></i> 1. Individuelles Gedächtnis
+        </button>
+        <div id="individuelles-gedaechtnis" class="hidden-content">
+            <div class="example-box">
+                <ul>
+                    <li>Dies bezieht sich auf die persönlichen Erinnerungen und Erfahrungen eines Einzelnen. Es ist subjektiv und variiert von Person zu Person.</li>
+                    <li><strong>Beispiel:</strong> Eine Person erinnert sich an ihre Kindheitserlebnisse, wie das Spielen im Garten ihrer Großeltern oder den ersten Schultag. Diese Erinnerungen sind einzigartig und formen ihre persönliche Identität.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleContent('kollektives-gedaechtnis')">
+            <i class="fas fa-chevron-right"></i> 2. Kollektives Gedächtnis
+        </button>
+        <div id="kollektives-gedaechtnis" class="hidden-content">
+            <div class="example-box">
+                <ul>
+                    <li>Das kollektive Gedächtnis umfasst die gemeinsamen Erinnerungen einer Gruppe oder Gesellschaft. Es ist nicht nur die Summe individueller Erinnerungen, sondern entsteht durch soziale Interaktionen und den Austausch von Erfahrungen.</li>
+                    <li>Es wird durch Erzählungen, Rituale, Symbole und Traditionen weitergegeben und ist entscheidend für die Identitätsbildung einer Gemeinschaft.</li>
+                    <li>Kollektives Gedächtnis ist dynamisch und kann sich im Laufe der Zeit verändern, um sich an neue gesellschaftliche Kontexte anzupassen.</li>
+                    <li><strong>Beispiel:</strong> In einer Gemeinschaft, die den Zweiten Weltkrieg erlebt hat, gibt es gemeinsame Erinnerungen an den Krieg, die Flucht und den Wiederaufbau. Diese Erinnerungen werden durch Erzählungen, Gedenkfeiern und gemeinsame Rituale weitergegeben, wie z.B. das jährliche Gedenken an den Kriegsende.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleContent('funktion-gedaechtnis')">
+            <i class="fas fa-chevron-right"></i> 3. Funktion des kollektiven Gedächtnisses
+        </button>
+        <div id="funktion-gedaechtnis" class="hidden-content">
+            <div class="example-box">
+                <ul>
+                    <li>Das kollektive Gedächtnis spielt eine zentrale Rolle in der Konstruktion von Identität, sowohl auf individueller als auch auf gesellschaftlicher Ebene. Es hilft Gemeinschaften, sich selbst zu definieren, ihre Geschichte zu verstehen und ihre Werte zu bewahren.</li>
+                    <li>Es kann auch zur Bildung von Gemeinschaftsgefühl und Solidarität beitragen, indem es gemeinsame Erfahrungen und Erinnerungen hervorhebt.</li>
+                    <li><strong>Beispiel:</strong> In Deutschland wird der 9. November als Tag der Maueröffnung und als Gedenktag für die Reichspogromnacht begangen. Diese Erinnerungen fördern ein Gefühl der Solidarität und des Bewusstseins für die Geschichte, was wichtig für die nationale Identität ist.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleContent('politische-dimension')">
+            <i class="fas fa-chevron-right"></i> 4. Politische Dimension
+        </button>
+        <div id="politische-dimension" class="hidden-content">
+            <div class="example-box">
+                <ul>
+                    <li>Assmann betont, dass kollektives Gedächtnis auch politische Dimensionen hat. Es kann zur Legitimation von Machtstrukturen und zur Mobilisierung von Gruppen in politischen Bewegungen genutzt werden.</li>
+                    <li>Erinnerungen an historische Ereignisse können politisch instrumentalisiert werden, um bestimmte Narrative zu fördern oder zu hinterfragen.</li>
+                    <li><strong>Beispiel:</strong> Die Erinnerung an die friedliche Revolution von 1989 in der DDR wird politisch genutzt, um das Engagement für Demokratie und Freiheit zu legitimieren. Politische Parteien und Bewegungen beziehen sich auf diese Erinnerungen, um ihre Programme und Ziele zu unterstützen.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+                        
+                      
+<!-- ===== Public History-Abschnitt (Originalinhalte + Aufgaben) ===== -->
+<div class="subsection">
+    <h4 onclick="toggleSubsection(this)">3.1.2 Public History</h4>
+    <div class="content">
+        <!-- Originalinhalt -->
+        <p><strong>Erklärung:</strong> Public History bezeichnet die Praxis, Geschichte außerhalb akademischer Kontexte zu erforschen, zu präsentieren und zu diskutieren. Sie umfasst Aktivitäten wie die Arbeit in Museen, Gedenkstätten, Archiven und Medien, die sich an die breite Öffentlichkeit richten. Public History zielt darauf ab, historische Themen zugänglich und relevant für ein breites Publikum zu machen und fördert oft den Dialog zwischen Historikern und der Gesellschaft.</p>
+        
+        <button class="toggle-btn" onclick="toggleContent('public-history-beispiele')">
+            <i class="fas fa-chevron-right"></i> Beispiele
+        </button>
+        <div id="public-history-beispiele" class="hidden-content">
+            <div class="example-box">
+                <ul>
+                    <li><strong>Museen und Ausstellungen:</strong> Das Smithsonian National Museum of American History in Washington, D.C., das breite Ausstellungen zur amerikanischen Geschichte bietet, um ein breites Publikum anzusprechen.</li>
+                    <li><strong>Historische Reenactments:</strong> Veranstaltungen wie die Nachstellungen der Schlacht von Gettysburg, die Geschichte lebendig machen und zugänglich für die Öffentlichkeit gestalten.</li>
+                    <li><strong>Fernsehdokumentationen:</strong> Serien wie "The Civil War" von Ken Burns, die historische Ereignisse in einem populären Format für ein breites Publikum aufbereiten.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Unterpunkt: Methodenvergleich (Aufgabe 1) -->
+        <div class="subsection">
+            <h4 onclick="toggleSubsection(this)">Aufgabe 1: Methoden vergleichen</h4>
+            <div class="content">
+                <div class="zuordnung-aufgabe">
+                    <p>Vergleiche Public-History-Formate. Ziehe die Begriffe in die richtigen Felder.</p>
+                    
+                    <table class="methoden-table">
+                        <tr>
+                            <th>Format</th>
+                            <th>Stärken</th>
+                            <th>Risiken</th>
+                            <th>Beispiel</th>
+                        </tr>
+                        <tr>
+                            <td>Dokumentation</td>
+                            <td class="dropzone" ondrop="dropMethod(event)" ondragover="allowDrop(event)"></td>
+                            <td class="dropzone" ondrop="dropMethod(event)" ondragover="allowDrop(event)"></td>
+                            <td class="dropzone" ondrop="dropMethod(event)" ondragover="allowDrop(event)"></td>
+                        </tr>
+                        <tr>
+                            <td>Social Media</td>
+                            <td class="dropzone" ondrop="dropMethod(event)" ondragover="allowDrop(event)"></td>
+                            <td class="dropzone" ondrop="dropMethod(event)" ondragover="allowDrop(event)"></td>
+                            <td class="dropzone" ondrop="dropMethod(event)" ondragover="allowDrop(event)"></td>
+                        </tr>
+                        <tr>
+                            <td>Gedenkstätte</td>
+                            <td class="dropzone" ondrop="dropMethod(event)" ondragover="allowDrop(event)"></td>
+                            <td class="dropzone" ondrop="dropMethod(event)" ondragover="allowDrop(event)"></td>
+                            <td class="dropzone" ondrop="dropMethod(event)" ondragover="allowDrop(event)"></td>
+                        </tr>
+                    </table>
+
+                    <div class="drag-options">
+                        <div class="drag-item" draggable="true" ondragstart="dragStart(event)" data-type="strength">Breitenwirksamkeit</div>
+                        <div class="drag-item" draggable="true" ondragstart="dragStart(event)" data-type="strength">Emotionaler Zugang</div>
+                        <div class="drag-item" draggable="true" ondragstart="dragStart(event)" data-type="strength">Partizipation</div>
+                        <div class="drag-item" draggable="true" ondragstart="dragStart(event)" data-type="risk">Vereinfachung</div>
+                        <div class="drag-item" draggable="true" ondragstart="dragStart(event)" data-type="risk">Fragmentierung</div>
+                        <div class="drag-item" draggable="true" ondragstart="dragStart(event)" data-type="risk">Instrumentalisierung</div>
+                        <div class="drag-item" draggable="true" ondragstart="dragStart(event)" data-type="example">@europeana (Instagram)</div>
+                        <div class="drag-item" draggable="true" ondragstart="dragStart(event)" data-type="example">KZ-Gedenkstätte Dachau</div>
+                        <div class="drag-item" draggable="true" ondragstart="dragStart(event)" data-type="example">Doku *Apokalypse WWII*</div>
+                    </div>
+
+                    <button class="check-btn" onclick="checkMethods()">Überprüfen</button>
+                    <div id="method-feedback" class="feedback"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Unterpunkt: Fallbeispiele (Aufgabe 2) -->
+        <div class="subsection">
+            <h4 onclick="toggleSubsection(this)">Aufgabe 2: Fallbeispiele analysieren</h4>
+            <div class="content">
+                <div class="example-box">
+                    <div class="example-nav">
+                        <button class="nav-example-btn" onclick="prevExample()"><i class="fas fa-chevron-left"></i></button>
+                        <span id="example-counter">Beispiel 1/4</span>
+                        <button class="nav-example-btn" onclick="nextExample()"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+
+                    <div id="example-1" class="example-content active">
+                        <p>„Die Netflix-Serie *The Crown* wurde für ihre dramatisierte Darstellung der britischen Monarchie kritisiert. Historiker bemängeln, dass fiktionale Szenen als Fakten wahrgenommen werden.“</p>
+                    </div>
+                    <div id="example-2" class="example-content">
+                        <p>„Das Videospiel *Assassin’s Creed: Valhalla* zeigt eine romantisierte Version der Wikinger-Invasion in England. Archäologen kritisieren, dass Gewalt und Sklaverei der Epoche verharmlost werden.“</p>
+                    </div>
+                    <div id="example-3" class="example-content">
+                        <p>„Das Berliner DDR-Museum setzt auf interaktive Objekte wie nachgebaute Trabi-Autos. Besucher*innen können ,DDR-Luft‘ schnuppern – aber wird dabei die Diktatur verklärt?“</p>
+                    </div>
+                    <div id="example-4" class="example-content">
+                        <p>„TikTok-Historiker @historybuff postet 60-Sekunden-Videos über den Kalten Krieg. Die Algorithmen belohnen dramatische Darstellungen – oft auf Kosten von Nuancen.“</p>
+                    </div>
+
+                    <div class="quiz-options">
+                        <button class="quiz-option" onclick="showQuestionFeedback(1)">1. Empirische Triftigkeit</button>
+                        <button class="quiz-option" onclick="showQuestionFeedback(2)">2. Normative Triftigkeit</button>
+                        <button class="quiz-option" onclick="showQuestionFeedback(3)">3. Narrative Triftigkeit</button>
+                    </div>
+                    
+                    <div id="question-feedback" class="feedback" style="display: none;">
+                        <p id="feedback-text"></p>
+                        <button class="explanation-btn" onclick="toggleTooltip()">
+                            <i class="fas fa-info-circle"></i> Aussage zur Public History anzeigen
+                        </button>
+                        <div id="tooltip" class="hidden-content">
+                            <p>„Public History muss immer transparent machen, wo Fakten enden und Interpretation beginnt.“</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                        
+                   <div class="subsection">
+    <h4 onclick="toggleSubsection(this)">3.1.3 Geschichtspolitik</h4>
+    <div class="content">
+        <p><strong>Erklärung:</strong> Geschichtspolitik bezieht sich auf die bewusste Nutzung von Geschichte durch politische Akteure, um bestimmte Identitäten, Werte oder politische Ziele zu fördern. Dies kann durch die Auswahl und Interpretation historischer Ereignisse geschehen, die in Bildung, Gedenkveranstaltungen oder Medien dargestellt werden. Geschichtspolitik beeinflusst, wie eine Gesellschaft ihre Vergangenheit versteht und erinnert, und kann sowohl integrative als auch spaltende Effekte haben.</p>
+        
+        <button class="toggle-btn" onclick="toggleContent('geschichtspolitik-beispiele')">
+            <i class="fas fa-chevron-right"></i> Beispiele
+        </button>
+        <div id="geschichtspolitik-beispiele" class="hidden-content">
+            <div class="example-box">
+                <ul>
+                    <li><strong>Gesetzgebung:</strong> Die Einführung von Gesetzen, die die Leugnung des Holocausts unter Strafe stellen, wie in Deutschland, um die Erinnerung an die Verbrechen des Nationalsozialismus wachzuhalten.</li>
+                    <li><strong>Staatliche Gedenktage:</strong> Der "Tag der Deutschen Einheit" am 3. Oktober in Deutschland, der die Wiedervereinigung feiert und nationale Identität stärkt.</li>
+                    <li><strong>Lehrpläne:</strong> Die Entscheidung, bestimmte historische Ereignisse in den Schulcurricula hervorzuheben oder zu minimieren, um bestimmte nationale Narrative zu fördern.</li>
+                </ul>
+            </div>
+            
+            <button class="toggle-btn" onclick="toggleContent('ns-volksgeschichte-beispiel')">
+                <i class="fas fa-chevron-right"></i> Beispiel: Nationalsozialistische Volksgeschichtsschreibung
+            </button>
+            <div id="ns-volksgeschichte-beispiel" class="hidden-content">
+                <div class="example-box">
+                    <div class="example-title"><i class="fas fa-book"></i> Charakteristika der nationalsozialistischen Volksgeschichtsschreibung</div>
+                    
+                    <div class="principle-definition">
+                        <h5>Rassistische Deutung der Geschichte:</h5>
+                        <ul>
+                            <li>Die deutsche Geschichte wurde als Kampf zwischen „nordisch-germanischen" Herrenmenschen und „minderwertigen" Rassen dargestellt.</li>
+                            <li>Slawen, Juden und Roma wurden als „Fremdvölker" diffamiert, die angeblich die „Reinheit" des deutschen Volkes bedrohten.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="principle-definition">
+                        <h5>Germanenmythos und „Blut-und-Boden"-Ideologie:</h5>
+                        <ul>
+                            <li>Autoren wie <strong>Hans F. K. Günther</strong> (<em>Rassenkunde des deutschen Volkes</em>, 1922) oder <strong>Alfred Rosenberg</strong> (<em>Der Mythus des 20. Jahrhunderts</em>, 1930) stilisierten die Germanen als „arische Urrasse".</li>
+                            <li>Mittelalterliche Ostsiedlung und Kolonisation wurden als „deutscher Kulturmission" verklärt, um spätere Eroberungspläne („Lebensraum im Osten") zu legitimieren.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="principle-definition">
+                        <h5>Antisemitische Geschichtsfälschung:</h5>
+                        <ul>
+                            <li>Werke wie <em>"Die Judenfrage in der Geschichte"</em> (1943) von Peter Heinz Seraphim behaupteten eine jüdische „Weltverschwörung".</li>
+                            <li>Jüdische Einflüsse in Wirtschaft, Kunst oder Politik wurden als „Zersetzung" dargestellt.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="principle-definition">
+                        <h5>Instrumentalisierung für NS-Propaganda:</h5>
+                        <ul>
+                            <li>Die „Volkstumsforschung" diente der Rechtfertigung von Annexionen (z.B. Sudetenland, Polen).</li>
+                            <li>Historiker wie <strong>Theodor Mayer</strong> (Reichsinstitut für ältere deutsche Geschichtskunde) passten ihre Arbeit der NS-Ideologie an.</li>
+                        </ul>
+                    
+
+                <div class="warning-box" style="background-color: #fff3cd; border: 1px solid #ffeaa7; border-left: 4px solid #fdcb6e; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                    <h6><i class="fas fa-exclamation-triangle"></i> Warnsignale manipulativer Geschichtspolitik</h6>
+                    <p>Basierend auf Kolesnikovs Analyse der russischen Geschichtspolitik können folgende Warnsignale identifiziert werden:</p>
+                    <ul>
+                        <li><strong>Sakralisierung der Staatsmacht:</strong> Geschichte wird auf die Taten von Herrschern reduziert</li>
+                        <li><strong>Volk als "Verschleißmaterial":</strong> Individuen werden zu passiven Objekten der "großen Geschichte"</li>
+                        <li><strong>Verordnete Moral:</strong> Der Staat bestimmt, was bei der Geschichtsbewertung moralisch ist</li>
+                        <li><strong>Geschichtsfälschungsvorwurf:</strong> Kritische Perspektiven werden als "Verrat" dargestellt</li>
+                    </ul>
+                    <p><em>Quelle: Kolesnikov, Andrej (2020): "Erinnerung als Waffe", in: Osteuropa, 70. Jg., 6/2020, S. 3-28.</em></p>
+                </div>
+                </div>
+                </div>
+            </div>
+            
+            <button class="toggle-btn" onclick="toggleContent('aktuelle-beispiele')">
+                <i class="fas fa-chevron-right"></i> Aktuelle Beispiele
+            </button>
+            <div id="aktuelle-beispiele" class="hidden-content">
+                <div class="example-box">
+                    <div class="example-title"><i class="fas fa-user-tie"></i> Donald Trump und die "1776 Commission"</div>
+                    <p>Kurz vor Ende seiner Amtszeit 2020 initiierte Trump die "1776 Commission", die eine patriotischere Geschichtsvermittlung in Schulen fördern sollte. Der Bericht der Kommission stellte die amerikanische Geschichte als eine durchgehende Erfolgsgeschichte dar und kritisierte linke Geschichtsinterpretationen wie das "1619 Project" der New York Times, das sich mit den Folgen der Sklaverei beschäftigt.</p>
+                    <p><strong>Ziel:</strong> Die Kommission sollte eine konservative, nationalistische Geschichtserzählung etablieren und kritische Perspektiven auf Rassismus und Ungleichheit in der amerikanischen Geschichte zurückdrängen.</p>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title"><i class="fas fa-flag"></i> Wladimir Putin und die historische Rechtfertigung des Ukraine-Kriegs</div>
+                    <p>Putin nutzt historische Narrative, um den Krieg gegen die Ukraine zu rechtfertigen. Er behauptet, die Ukraine sei kein "echter" Nationalstaat, sondern ein künstliches Konstrukt, das historisch immer Teil Russlands gewesen sei. Diese Darstellung ignoriert die komplexe Geschichte der Region und die Entwicklung einer eigenständigen ukrainischen Identität.</p>
+                    <p><strong>Ziel:</strong> Durch diese Geschichtsinterpretation soll der Angriffskrieg als notwendige "Wiedervereinigung" historisch russischer Gebiete erscheinen.</p>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title"><i class="fas fa-rainbow"></i> Anti-queere Geschichtspolitik</div>
+                    <p>Wie im <a href="https://www.deutschlandfunkkultur.de/kompressor-spezial-staatlicher-angriff-auf-queeres-leben-100.html" target="_blank">Podcast "Kompressor Spezial"</a> thematisiert, gibt es in mehreren Ländern Bestrebungen, queere Geschichte aus dem öffentlichen Raum und Bildungsinstitutionen zu verdrängen. In Ungarn wurde bspw. ein Gesetz erlassen, das die Darstellung von Homosexualität und Transsexualität in Schulmaterialien und Medien für Minderjährige einschränkt.</p>
+                    <p><strong>Ziel:</strong> Durch die Ausblendung queerer Geschichte soll ein traditionelles Familienbild als alleinige Norm etabliert werden.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                        
+                        <div class="subsection">
+                            <h4 onclick="toggleSubsection(this)">3.1.4 Erinnerungskultur</h4>
+                            <div class="content">
+                                <p><strong>Erklärung:</strong> Erinnerungskultur beschreibt die Art und Weise, wie Gesellschaften und Gemeinschaften sich an die Vergangenheit erinnern und diese Erinnerungen pflegen. Sie umfasst Rituale, Denkmäler, Gedenktage und Bildungsprogramme, die dazu dienen, bestimmte historische Ereignisse oder Erfahrungen im kollektiven Gedächtnis zu verankern. Erinnerungskultur spielt eine wichtige Rolle bei der Identitätsbildung und der Auseinandersetzung mit historischen Traumata oder Errungenschaften.</p>
+                                
+                                <button class="toggle-btn" onclick="toggleContent('erinnerung-beispiele')">
+                                    <i class="fas fa-chevron-right"></i> Beispiele
+                                </button>
+                                <div id="erinnerung-beispiele" class="hidden-content">
+                                    <div class="example-box">
+                                        <ul>
+                                            <li><strong>Denkmäler:</strong> Das Holocaust-Mahnmal in Berlin, das an die ermordeten Juden Europas erinnert und ein Ort der Reflexion und des Gedenkens ist.</li>
+                                            <li><strong>Gedenktage:</strong> Der 11. November als Tag des Waffenstillstands in vielen Ländern, der an das Ende des Ersten Weltkriegs erinnert und die Opfer ehrt.</li>
+                                            <li><strong>Oral History Projekte:</strong> Initiativen wie das "StoryCorps" in den USA, das persönliche Geschichten von Menschen sammelt und bewahrt, um ein vielfältiges Bild der Geschichte zu vermitteln.</li>
+                                        </ul>
+                                    
+
+                <div class="example-box">
+                    <h5><i class="fas fa-globe"></i> Transnationale Perspektiven der Erinnerungskultur</h5>
+                    <p>Mörikes Schulbuchanalyse (2022) zeigt eindrucksvoll, wie unterschiedlich derselbe historische Sachverhalt in verschiedenen nationalen Kontexten dargestellt wird. Am Beispiel des Versailler Vertrags wird deutlich:</p>
+
+                    <div style="background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 5px;">
+                        <h6>Deutschland:</h6>
+                        <ul>
+                            <li><strong>1920er-1960er:</strong> Versailles als "Diktat" und "Demütigung"</li>
+                            <li><strong>Ab 1980er:</strong> Multiperspektivische Darstellung mit Kompromisscharakter</li>
+                            <li><strong>Heute:</strong> Einbettung in europäische Friedensordnung</li>
+                        </ul>
+
+                        <h6>Frankreich:</h6>
+                        <ul>
+                            <li><strong>Durchgehend:</strong> Sachliche Darstellung ohne emotionale Überhöhung</li>
+                            <li><strong>Ab 1950er:</strong> Frühe Betonung des Kompromisscharakters</li>
+                            <li><strong>Fokus:</strong> "paix imparfaite" (unvollkommener Frieden)</li>
+                        </ul>
+                    </div>
+
+                    <p><strong>Erkenntnis:</strong> Schulbücher fungieren als "Konstrukteure und Konstruktionen von Erinnerungskultur" und zeigen, wie nationale Narrative die Geschichtswahrnehmung prägen.</p>
+
+                    <p><em>Quelle: Mörike, Lena (2022): "Nationale Geschichtspolitik. Der Versailler Friedensvertrag in der 100-jährigen Erinnerung in Schulbüchern aus vier Nationen", Bielefeld: transcript Verlag.</em></p>
+                </div>
+                </div>
+                                </div>
+                            </div>
+                        </div><div class="subsection">
+    <h4 onclick="toggleSubsection(this)">3.1.5 Agency (Handlungsspielraum)</h4>
+    <div class="content">
+        <p><strong>Erklärung:</strong> Das Agency-Konzept (Handlungsspielraum, Handlungsfähigkeit) ist in der Geschichtswissenschaft ein zentrales Analyseinstrument, um zu verstehen, inwieweit Individuen oder Gruppen in historischen Prozessen eigenständig handeln, Entscheidungen treffen und Entwicklungen beeinflussen können.</p>
+        
+        <button class="toggle-btn" onclick="toggleContent('agency-kerngedanken')">
+            <i class="fas fa-chevron-right"></i> Kerngedanken des Agency-Konzepts
+        </button>
+        <div id="agency-kerngedanken" class="hidden-content">
+            <div class="example-box">
+                <ul>
+                    <li><strong>Definition:</strong> Agency bezeichnet die Fähigkeit, in einer bestimmten historischen Situation bewusst und zielgerichtet zu handeln, eigene Interessen zu verfolgen und damit den Verlauf von Ereignissen zu beeinflussen.</li>
+                    
+                    <li><strong>Handlungsfähigkeit:</strong> Agency ist mehr als bloße Reaktion auf äußere Umstände; sie meint die aktive Gestaltung von Geschichte durch Akteure, die auch anders hätten handeln können (Giddens: „the capability of doing those things in the first place").</li>
+                    
+                    <li><strong>Soziale Einbettung:</strong> Agency ist immer sozial eingebettet. Sie hängt von individuellen Fähigkeiten, aber auch von gesellschaftlichen Strukturen, Machtverhältnissen und Identitäten ab. Akteur*innen eignen sich historische Kategorien und Handlungsbedingungen an, um sie für ihre eigenen Interessen zu nutzen oder zu verändern.</li>
+                    
+                    <li><strong>Struktur und Handlung:</strong> Das Agency-Konzept steht im Spannungsfeld zwischen individueller Freiheit und gesellschaftlicher Struktur. Es fragt, wie viel Spielraum Menschen innerhalb historischer Zwänge tatsächlich hatten und wie sie diesen nutzten.</li>
+                    
+                    <li><strong>Praktische Umsetzung:</strong> Historische Agency zeigt sich darin, wie Akteure Vergangenheit deuten, rekonstruieren und erzählen, um gesellschaftliche Teilhabe zu gestalten. Sie ist nicht statisch, sondern entsteht immer wieder neu im Wechselspiel von Akteuren und Strukturen.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleContent('agency-bedeutung')">
+            <i class="fas fa-chevron-right"></i> Bedeutung in der Geschichtswissenschaft
+        </button>
+        <div id="agency-bedeutung" class="hidden-content">
+            <div class="example-box">
+                <ul>
+                    <li><strong>Perspektivwechsel:</strong> Agency rückt den Blick weg von „großen Strukturen" (wie Wirtschaft, Staat, Gesellschaft) hin zu den Handlungsmöglichkeiten und -entscheidungen einzelner Menschen oder Gruppen.</li>
+                    
+                    <li><strong>Vielfalt und Macht:</strong> Agency ist ungleich verteilt. Nicht alle Akteure haben denselben Zugang zu Handlungsspielräumen – Machtstrukturen, soziale Herkunft, Geschlecht oder Zugehörigkeit spielen eine große Rolle.</li>
+                    
+                    <li><strong>Geschichtskultur:</strong> Agency betrifft auch, wer an gesellschaftlichen Erinnerungsprozessen teilnimmt und wessen Geschichten gehört werden. Sie ist Teil der aktiven Aushandlung von Geschichtsbewusstsein und Identität.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="quote-highlight">
+            <i class="fas fa-quote-left"></i>
+            "Das Agency-Konzept hilft, historische Entwicklungen differenzierter zu betrachten: Es fragt, wie viel Einfluss Menschen auf den Gang der Geschichte hatten, wie sie ihren Handlungsspielraum nutzten – und wo Grenzen lagen. Agency ist damit ein Schlüsselbegriff, um Geschichte als Ergebnis von Entscheidungen, Aushandlungen und Machtverhältnissen zu verstehen."
+        </div>
+        
+        <button class="toggle-btn" onclick="toggleContent('agency-beispiele')">
+            <i class="fas fa-chevron-right"></i> Beispiele und Anwendungen
+        </button>
+        <div id="agency-beispiele" class="hidden-content">
+            <div class="example-box">
+                <div class="example-title"><i class="fas fa-users"></i> Widerstand im Nationalsozialismus</div>
+                <p>Die Untersuchung von Widerstandsgruppen wie der "Weißen Rose" zeigt, wie trotz totalitärer Strukturen Handlungsspielräume genutzt wurden. Die Analyse fragt: Welche Entscheidungsmöglichkeiten hatten Einzelne? Wie wurden Netzwerke genutzt? Welche Risiken wurden eingegangen?</p>
+                
+                <div class="example-title"><i class="fas fa-fist-raised"></i> Bürgerrechtsbewegungen</div>
+                <p>Die afroamerikanische Bürgerrechtsbewegung demonstriert Agency durch strategische Entscheidungen (z.B. gewaltfreier Protest), Nutzung medialer Aufmerksamkeit und geschickte politische Mobilisierung trotz struktureller Diskriminierung.</p>
+                
+                <div class="example-title"><i class="fas fa-industry"></i> Arbeiterbewegungen</div>
+                <p>Historische Studien zeigen, wie Arbeiter*innen im 19. Jahrhundert trotz prekärer Bedingungen kollektive Handlungsfähigkeit entwickelten – durch Streiks, Gewerkschaftsbildung und politische Organisation.</p>
+            </div>
+        </div>
+    </div>
+
+        <div class="subsection">
+            <h4 onclick="toggleSubsection(this)">3.1.6 Kritische Medienkompetenz und internationale Perspektiven</h4>
+            <div class="content">
+                <p>Dieses Analyseinstrument integriert medienpädagogische Konzepte und internationale Vergleichsperspektiven zur Stärkung der demokratischen Resilienz gegen Manipulation und Desinformation.</p>
+
+                <div class="analysis-box" style="background-color: #e8f4fd; border: 1px solid #bee5eb; border-left: 4px solid #17a2b8; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                    <p><strong>Wissenschaftliche Grundlage:</strong> Dieses Instrument basiert auf aktueller Forschung zur kritischen Medienkompetenz, der transnationalen Schulbuchforschung (Mörike, 2022) und der Analyse manipulativer Geschichtspolitik (Kolesnikov, 2020).</p>
+                </div>
+
+                <button class="toggle-btn" onclick="toggleContent('medienpaedagogik-integration')">
+                    <i class="fas fa-chevron-right"></i> A. Integration medienpädagogischer Konzepte
+                </button>
+                <div id="medienpaedagogik-integration" class="hidden-content">
+                    <div class="example-box">
+                        <h5><i class="fas fa-shield-alt"></i> Systematische Desinformationserkennung</h5>
+                        <ul>
+                            <li><strong>Deepfakes und KI-Inhalte:</strong> Erkennung künstlich generierter Medien durch technische und inhaltliche Analyse</li>
+                            <li><strong>Bot-Netzwerke:</strong> Identifikation automatisierter Meinungsmanipulation in sozialen Medien</li>
+                            <li><strong>Typosquatting:</strong> Aufdeckung gefälschter Nachrichtenseiten mit ähnlichen Domains</li>
+                            <li><strong>Filterblase-Bewusstsein:</strong> Verständnis für algorithmusgesteuerte Informationsverteilung</li>
+                        </ul>
+
+                        <h5><i class="fas fa-search"></i> Multimodale Quellenkritik</h5>
+                        <ul>
+                            <li><strong>Textanalyse:</strong> Erkennung rhetorischer Strategien und Framingprozesse</li>
+                            <li><strong>Bildanalyse:</strong> Aufdeckung manipulierter Fotografien und falscher Kontextualisierung</li>
+                            <li><strong>Audio-/Videoanalyse:</strong> Stimmanalyse und Erkennung von Videobearbeitung</li>
+                            <li><strong>Datenverifikation:</strong> Nutzung von Fact-Checking-Plattformen und Verifikationstools</li>
+                        </ul>
+
+                        <div class="warning-box" style="background-color: #fff3cd; border: 1px solid #ffeaa7; border-left: 4px solid #fdcb6e; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                            <h6><strong>Warnsignale nach Kolesnikov (2020):</strong></h6>
+                            <ul>
+                                <li><strong>"Geschichte als Waffe":</strong> Instrumentalisierung historischer Narrative zur politischen Mobilisierung</li>
+                                <li><strong>Opferkonkurrenzen:</strong> Konstruktion von Hierarchien des Leidens zur Legitimation aktueller Politik</li>
+                                <li><strong>Erinnerungsorte zum Verschwigen bringen:</strong> Tilgung unerwünschter historischer Zeugnisse</li>
+                                <li><strong>Staat als "Chefhistoriker":</strong> Monopolisierung der Geschichtsinterpretation durch politische Macht</li>
+                            </ul>
+                            <p><em>Quelle: Kolesnikov, Andrej (2020): "Erinnerung als Waffe", in: Osteuropa, 70. Jg., 6/2020, S. 3-28.</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="toggle-btn" onclick="toggleContent('internationale-perspektiven-neu')">
+                    <i class="fas fa-chevron-right"></i> B. Erweiterung um internationale Perspektiven
+                </button>
+                <div id="internationale-perspektiven-neu" class="hidden-content">
+                    <div class="example-box">
+                        <h5><i class="fas fa-globe-europe"></i> Transnationale Geschichtsbetrachtung</h5>
+                        <p>Basierend auf Mörikes Schulbuchanalyse (2022) zeigen sich deutliche Unterschiede in der Darstellung des Versailler Vertrags:</p>
+
+                        <div style="display: flex; gap: 20px; margin: 15px 0;">
+                            <div style="flex: 1; background: #f8f9fa; padding: 10px; border-radius: 5px;">
+                                <h6>Deutschland:</h6>
+                                <ul style="font-size: 0.9em;">
+                                    <li>1920er-1960er: "Diktat" und "Demütigung"</li>
+                                    <li>Ab 1980er: Multiperspektivische Darstellung</li>
+                                    <li>Heute: Einbettung in europäische Friedensordnung</li>
+                                </ul>
+                            </div>
+                            <div style="flex: 1; background: #f8f9fa; padding: 10px; border-radius: 5px;">
+                                <h6>Frankreich:</h6>
+                                <ul style="font-size: 0.9em;">
+                                    <li>Sachliche Darstellung ohne emotionale Überhöhung</li>
+                                    <li>Frühe Betonung des Kompromisscharakters (ab 1950er)</li>
+                                    <li>Fokus auf "paix imparfaite" (unvollkommener Frieden)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h5><i class="fas fa-balance-scale"></i> Kontroversitätsprinzip</h5>
+                        <ul>
+                            <li><strong>Darstellung verschiedener Interpretationen:</strong> Keine monoperspektivische Geschichtsvermittlung</li>
+                            <li><strong>Überwältigungsverbot:</strong> Vermeidung indoktrinierender Darstellungen</li>
+                            <li><strong>Schülerorientierung:</strong> Anknüpfung an die Lebenswelt der Lernenden</li>
+                            <li><strong>Wissenschaftlichkeit:</strong> Transparenz der Quellen und Methoden</li>
+                        </ul>
+
+                        <div class="source-box" style="background-color: #e8f4fd; border: 1px solid #bee5eb; padding: 10px; margin: 10px 0; border-radius: 5px; font-size: 0.9em;">
+                            <em>Quelle: Mörike, Lena (2022): "Nationale Geschichtspolitik. Der Versailler Friedensvertrag in der 100-jährigen Erinnerung in Schulbüchern aus vier Nationen", Bielefeld: transcript Verlag.</em>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="toggle-btn" onclick="toggleContent('praxisbeispiele-neu')">
+                    <i class="fas fa-chevron-right"></i> C. Praxisbeispiele und methodische Anwendung
+                </button>
+                <div id="praxisbeispiele-neu" class="hidden-content">
+                    <div class="example-box">
+                        <h5><i class="fas fa-tools"></i> Methodische Anwendung</h5>
+
+                        <h6>Fallstudie 1: Analyse konkurrierender Geschichtsnarrative</h6>
+                        <ul>
+                            <li><strong>Thema:</strong> Versailler Vertrag in deutschen, französischen und polnischen Schulbüchern</li>
+                            <li><strong>Methode:</strong> Vergleichende Textanalyse und Bildinterpretation</li>
+                            <li><strong>Lernziel:</strong> Erkennung nationaler Perspektivierungen historischer Ereignisse</li>
+                        </ul>
+
+                        <h6>Fallstudie 2: Moderne Desinformationskampagnen</h6>
+                        <ul>
+                            <li><strong>Thema:</strong> Vergleich NS-Propaganda mit aktuellen "Information Warfare"-Strategien</li>
+                            <li><strong>Methode:</strong> Rhetorische Analyse und technische Verifikation</li>
+                            <li><strong>Lernziel:</strong> Übertragung historischer Kenntnisse auf aktuelle Phänomene</li>
+                        </ul>
+
+                        <h6>Simulationsübung: Fact-Checking-Labor</h6>
+                        <ul>
+                            <li><strong>Ablauf:</strong> Schüler analysieren fragwürdige Inhalte mit professionellen Tools</li>
+                            <li><strong>Werkzeuge:</strong> Reverse Image Search, Wayback Machine, Whois-Abfragen</li>
+                            <li><strong>Reflexion:</strong> Grenzen und Möglichkeiten der Verifikation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="citation-box" style="background-color: #d4edda; border: 1px solid #c3e6cb; border-left: 4px solid #28a745; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                    <h5><i class="fas fa-quote-left"></i> Wissenschaftliche Fundierung</h5>
+                    <p>Dieses Analyseinstrument basiert auf der <strong>KMK-Empfehlung zur Erinnerungskultur</strong> (2014), aktueller <strong>Medienkompetenzforschung</strong> und den Erkenntnissen der <strong>transnationalen Schulbuchforschung</strong>. Es verbindet historisch-politische Bildung mit digitaler Mündigkeit im Sinne einer <strong>wehrhaften Demokratie</strong>.</p>
+                </div>
+            </div>
+        </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Tooltips bei Prinzipien-Buttons -->
+    <div class="principle-options">
+        <button class="principle-btn" 
+                data-tooltip="Abhängigkeit vom Standpunkt des Historikers"
+                onclick="showPrincipleExplanation('Standortgebundenheit')">
+            Standortgebundenheit
+        </button>
+        <!-- Weitere Buttons mit data-tooltip Attributen -->
+    </div>
+
+  <script>
+    // Zuordnungsaufgaben
+    const zuordnungsAufgaben = [
+        {
+            text: "Eine Studie untersucht die Entwicklung des Demokratiebegriffs von der Antike bis zur Moderne und wie sich die Vorstellungen von politischer Teilhabe verändert haben.",
+            richtigeAntwort: "ideengeschichte",
+            feedback: "Richtig! Dies ist ein Beispiel für Ideengeschichte, da sie die Entwicklung eines Konzepts (Demokratie) über die Zeit verfolgt."
+        },
+        {
+            text: "Ein Buch beschreibt die Entstehung der deutschen Nation im 19. Jahrhundert, mit besonderem Fokus auf die Rolle der Kleinstaaten und der Reichsgründung 1871.",
+            richtigeAntwort: "nationalgeschichte",
+            feedback: "Korrekt! Dies ist Nationalgeschichte, da sie sich auf die Entwicklung eines bestimmten Landes (Deutschland) konzentriert."
+        },
+        {
+            text: "Eine Analyse der Handelsbeziehungen zwischen Europa, Asien und Afrika im 15. Jahrhundert und deren Auswirkungen auf die globale Wirtschaft.",
+            richtigeAntwort: "globalgeschichte",
+            feedback: "Korrekt! Dies ist Globalgeschichte, da sie grenzüberschreitende Interaktionen untersucht."
+        },
+        {
+            text: "Eine kritische Studie über die Darstellung afrikanischer Kulturen in europäischen Geschichtsbüchern des 19. Jahrhunderts.",
+            richtigeAntwort: "postkoloniale",
+            feedback: "Richtig! Dies ist postkoloniale Geschichte, da sie koloniale Perspektiven hinterfragt."
+        },
+        {
+            text: "Eine detaillierte Untersuchung des Lebens einer Weberfamilie im 18. Jahrhundert, basierend auf Gerichtsakten und lokalen Archiven.",
+            richtigeAntwort: "mikrogeschichte",
+            feedback: "Korrekt! Dies ist Mikrogeschichte, da sie sich auf eine kleine Einheit (eine Familie) konzentriert."
+        },
+        {
+            text: "Eine Studie über die Entstehung der Arbeiterbewegung in England und deren Kampf für bessere Arbeitsbedingungen.",
+            richtigeAntwort: "sozialgeschichte",
+            feedback: "Richtig! Dies ist Sozialgeschichte, da sie soziale Bewegungen und Klassen untersucht."
+        },
+        {
+            text: "Eine detaillierte Beschreibung der Schlacht von Waterloo, mit Fokus auf die militärischen Strategien und den Verlauf des Kampfes.",
+            richtigeAntwort: "ereignisgeschichte",
+            feedback: "Korrekt! Dies ist Ereignisgeschichte, da sie ein spezifisches Ereignis (Schlacht) untersucht."
+        },
+        {
+            text: "Eine Untersuchung der Rolle von Musik und Kunst in der Weimarer Republik und wie sie gesellschaftliche Veränderungen widerspiegelten.",
+            richtigeAntwort: "kulturgeschichte",
+            feedback: "Richtig! Dies ist Kulturgeschichte, da sie kulturelle Ausdrucksformen untersucht."
+        }
+    ];
+
+    let currentZuordnungIndex = 0;
+    let zuordnungAttempts = 0;
+
+    function getRandomOptions(correctType) {
+        const allTypes = [
+            "ideengeschichte", "nationalgeschichte", "volksgeschichte", 
+            "globalgeschichte", "postkoloniale", "mikrogeschichte", 
+            "sozialgeschichte", "ereignisgeschichte", "kulturgeschichte"
+        ];
+        
+        // Filter out the correct type
+        const otherTypes = allTypes.filter(type => type !== correctType);
+        
+        // Shuffle the remaining types
+        const shuffled = otherTypes.sort(() => 0.5 - Math.random());
+        
+        // Take first 2
+        const randomOptions = shuffled.slice(0, 2);
+        
+        // Add correct type and shuffle again
+        const options = [...randomOptions, correctType].sort(() => 0.5 - Math.random());
+        
+        return options;
+    }
+
+    function showZuordnungAufgabe(index) {
+        const aufgabe = zuordnungsAufgaben[index];
+        const container = document.getElementById('zuordnung-container');
+        const options = getRandomOptions(aufgabe.richtigeAntwort);
+        
+        container.innerHTML = `
+            <div class="zuordnung-aufgabe">
+                <p>Ordne folgendes Beispiel der richtigen Geschichtsschreibungsform zu:</p>
+                <p><em>"${aufgabe.text}"</em></p>
+                
+                <div class="zuordnung-optionen">
+                    ${options.map(type => `
+                        <button class="triftigkeit-btn" onclick="selectZuordnungOption(this, '${type}', '${aufgabe.richtigeAntwort}')">
+                            ${getFormName(type)}
+                        </button>
+                    `).join('')}
+                </div>
+                
+                <div class="feedback" id="zuordnung-feedback"></div>
+            </div>
+        `;
+        
+        document.getElementById('next-zuordnung-btn').style.display = 'none';
+        zuordnungAttempts = 0;
+    }
+
+    function selectZuordnungOption(button, selectedType, correctType) {
+        const feedback = document.getElementById('zuordnung-feedback');
+        const options = document.querySelectorAll('.zuordnung-optionen button');
+        
+        options.forEach(opt => opt.classList.remove('selected'));
+        button.classList.add('selected');
+        
+        zuordnungAttempts++;
+        
+        if (selectedType === correctType) {
+            const aufgabe = zuordnungsAufgaben[currentZuordnungIndex];
+            feedback.innerHTML = `<p>${aufgabe.feedback}</p>`;
+            feedback.className = 'feedback correct';
+            document.getElementById('next-zuordnung-btn').style.display = 'block';
+        } else {
+            if (zuordnungAttempts >= 3) {
+                const aufgabe = zuordnungsAufgaben[currentZuordnungIndex];
+                feedback.innerHTML = `<p>Nicht ganz richtig. Die korrekte Antwort wäre: ${getFormName(correctType)}. ${aufgabe.feedback}</p>`;
+                feedback.className = 'feedback incorrect';
+                document.getElementById('next-zuordnung-btn').style.display = 'block';
+            } else {
+                feedback.innerHTML = '<p>Das ist nicht ganz richtig. Versuche es noch einmal!</p>';
+                feedback.className = 'feedback incorrect';
+            }
+        }
+    }
+
+    function getFormName(type) {
+        const formNames = {
+            'ideengeschichte': 'Ideengeschichte',
+            'nationalgeschichte': 'Nationalgeschichte',
+            'volksgeschichte': 'Volksgeschichte',
+            'globalgeschichte': 'Globalgeschichte',
+            'postkoloniale': 'Postkoloniale Geschichte',
+            'mikrogeschichte': 'Mikrogeschichte',
+            'sozialgeschichte': 'Sozialgeschichte',
+            'ereignisgeschichte': 'Ereignisgeschichte',
+            'kulturgeschichte': 'Kulturgeschichte'
+        };
+        return formNames[type] || type;
+    }
+
+    function nextZuordnung() {
+        currentZuordnungIndex = (currentZuordnungIndex + 1) % zuordnungsAufgaben.length;
+        showZuordnungAufgabe(currentZuordnungIndex);
+    }
+
+    // Quiz-Fragen (jetzt als Prinzipien-Erkennung)
+    const quizExamples = [
+        {
+            text: "Beispiel: Lina trennt sich von ihrem Freund nach zwei Jahren Beziehung. In der Zeit der Beziehung hat Lina eine Geschichte über ihren Partner geschrieben (in ihrem Kopf), in der dieser überwiegend positive Eigenschaften hatte. Sie kam zu dieser Beurteilung, da sie sich vor allem schöne Momente dafür ausgesucht hat. Nach der Trennung ändert sie ihre Geschichte über ihren Expartner. Nun kommen verstärkt negative Beurteilungen zu Tage und hierfür werden andere Erinnerungen ausgesucht oder neu gedeutet.",
+            principles: {
+                "Standortgebundenheit": "Linas Bewertung ändert sich mit ihrer neuen Situation nach der Trennung. Ihre Perspektive auf die Beziehung ist abhängig von ihrem aktuellen Standpunkt.",
+                "Perspektivität": "Lina wählt unterschiedliche Perspektiven auf dieselbe Beziehung, je nachdem ob sie in der Beziehung ist oder nicht.",
+                "Selektivität": "Sie wählt unterschiedliche Erinnerungen aus, um ihre aktuelle Sichtweise zu untermauern.",
+                "Konstruktivität": "Lina konstruiert aktiv unterschiedliche Versionen der Beziehung, je nach ihrer aktuellen Situation."
+            }
+        },
+        {
+            text: "Beispiel: Ein Historiker schreibt 2023 über die Covid-19-Pandemie. Er betont besonders die Rolle der digitalen Technologien und Homeoffice-Möglichkeiten, da diese Themen in seiner Gegenwart besonders relevant sind. Ein Historiker im Jahr 2050 könnte stattdessen andere Aspekte hervorheben, die aus seiner Perspektive wichtiger erscheinen.",
+            principles: {
+                "Standortgebundenheit": "Die Bewertung der Pandemie hängt vom zeitlichen Standpunkt des Historikers ab.",
+                "Retrospektivität": "Die Pandemie wird aus der jeweiligen Gegenwart der Historiker betrachtet.",
+                "Selektivität": "Unterschiedliche Aspekte werden je nach Relevanz für die jeweilige Gegenwart ausgewählt.",
+                "Narrativität": "Die Ereignisse werden zu einer bestimmten Geschichte zusammengefügt, die den aktuellen Interessen entspricht."
+            }
+        }, 
+   	 {
+        "text": "Beispiel: Ein Geschichtsbuch über den Zweiten Weltkrieg beschreibt nur die militärischen Schlachten und politischen Entscheidungen, aber erwähnt nicht das Alltagsleben der Zivilbevölkerung während des Krieges.",
+        "principles": {
+            "Partikularität": "Es wird nur ein Ausschnitt der gesamten Vergangenheit gezeigt.",
+            "Partialität": "Nur bestimmte Aspekte (Militär, Politik) werden berücksichtigt.",
+            "Selektivität": "Der Autor hat bestimmte Informationen ausgewählt und andere ausgelassen."
+        }
+    },
+    {
+        "text": "Beispiel: Ein Dokumentarfilm über die industrielle Revolution erzählt die Geschichte als Fortschrittsgeschichte, in der technische Innovationen zu Wohlstand und besserem Leben führten. Ein anderer Film stellt dieselbe Epoche als Geschichte der Ausbeutung und Umweltzerstörung dar.",
+        "principles": {
+            "Perspektivität": "Unterschiedliche Sichtweisen auf dieselben Ereignisse.",
+            "Narrativität": "Die Ereignisse werden in unterschiedliche Erzählungen eingebettet.",
+            "Konstruktivität": "Die Filme konstruieren aktiv unterschiedliche Versionen der Geschichte.",
+            "Standortgebundenheit": "Die Darstellung hängt vom Standpunkt der Filmemacher ab."
+        }
+    },
+    {
+        "text": "Beispiel: Ein Museum zeigt eine Ausstellung über die Kolonialzeit. Es werden viele Artefakte der Kolonialherren gezeigt, aber nur sehr wenige der kolonisierten Völker, obwohl diese eigentlich die Mehrheit der Bevölkerung stellten.",
+        "principles": {
+            "Partialität": "Nur ein Teil der Quellen/Artefakte ist vorhanden und wird gezeigt.",
+            "Selektivität": "Die Auswahl der Exponate ist einseitig.",
+            "Standortgebundenheit": "Die Darstellung spiegelt wahrscheinlich eine eurozentrische Perspektive wider."
+        }
+    }
+    ];
+
+    const examples = [
+        {
+            title: "Die Spanische Grippe (1918)",
+            content: "Die Darstellung der Spanischen Grippe hat sich im Laufe der Zeit verändert. Anfangs wurde sie oft als 'spanische' Krankheit dargestellt, obwohl sie nicht aus Spanien kam. Später betonten Historiker die globalen Auswirkungen und die sozialen Folgen. Heute wird sie oft mit modernen Pandemien verglichen.",
+            principles: {
+                "Standortgebundenheit": "Die Interpretation der Ereignisse hängt vom zeitlichen und kulturellen Standpunkt des Historikers ab. Während der Pandemie selbst war die Darstellung anders als heute.",
+                "Perspektivität": "Die Sichtweise auf die Pandemie variiert je nachdem, ob man medizinische, soziale oder politische Aspekte betont.",
+                "Selektivität": "Es werden unterschiedliche Aspekte hervorgehoben - mal die Opferzahlen, mal die politischen Reaktionen, mal die medizinischen Fortschritte."
+            }
+        },
+        {
+            title: "Kolonialismus in Afrika",
+            content: "Die Darstellung des Kolonialismus variiert stark zwischen ehemaligen Kolonialmächten und kolonisierten Ländern. Während einige Quellen die 'Zivilisationsmission' betonen, zeigen andere die Ausbeutung und Gewalt.",
+            principles: {
+                "Standortgebundenheit": "Die nationale Perspektive (deutsch vs. afrikanisch) führt zu unterschiedlichen Interpretationen derselben Ereignisse.",
+                "Partikularität": "Es werden nur bestimmte Ausschnitte der Geschichte gezeigt - z.B. Plantagenwirtschaft ohne den Widerstand der lokalen Bevölkerung.",
+                "Narrativität": "Die Ereignisse werden zu einer bestimmten Geschichte zusammengefügt, die entweder Rechtfertigung oder Anklage sein kann."
+            }
+        },
+        {
+            title: "Industrielle Revolution",
+            content: "Während die Industrielle Revolution oft als technologischer Fortschritt dargestellt wird, betonen andere Quellen die sozialen Probleme wie Kinderarbeit und Urbanisierung.",
+            principles: {
+                "Konstruktivität": "Die Geschichte wird aktiv gestaltet - entweder als Fortschrittserzählung oder als Sozialkritik.",
+                "Selektivität": "Je nach Fokus werden technische Errungenschaften oder soziale Missstände hervorgehoben.",
+                "Perspektivität": "Die Bewertung hängt davon ab, ob man die Perspektive der Fabrikbesitzer oder der Arbeiter einnimmt."
+            }
+        }
+    ];
+
+    let currentQuizExample = 0;
+    let currentExampleIndex = 0;
+
+    // Modal-Funktionen
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
+    // Toggle-Funktionen
+    function toggleSection(header) {
+        header.classList.toggle('active');
+        const content = header.nextElementSibling;
+        content.classList.toggle('active');
+    }
+
+    function toggleSubsection(header) {
+        header.classList.toggle('active');
+        const content = header.nextElementSibling;
+        content.classList.toggle('active');
+    }
+
+    function toggleSubSubsection(header) {
+        header.classList.toggle('active');
+        const content = header.nextElementSibling;
+        content.classList.toggle('active');
+    }
+
+    function toggleContent(contentId) {
+        const content = document.getElementById(contentId);
+        const button = content.previousElementSibling;
+        
+        content.classList.toggle('hidden-content');
+        button.classList.toggle('active');
+        
+        // Ändere den Button-Text
+        if (content.classList.contains('hidden-content')) {
+            button.innerHTML = button.innerHTML.replace('ausblenden', 'anzeigen');
+        } else {
+            button.innerHTML = button.innerHTML.replace('anzeigen', 'ausblenden');
+        }
+    }
+
+    function checkTriftigkeit(type) {
+        // Verstecke alle Feedbacks
+        document.querySelectorAll('.feedback').forEach(el => {
+            el.style.display = 'none';
+        });
+        
+        // Zeige das ausgewählte Feedback
+        document.getElementById(`${type}-feedback`).style.display = 'block';
+        document.getElementById(`${type}-feedback`).className = 'feedback correct';
+    }
+
+    // Schließe Modals beim Klicken außerhalb des Inhalts
+    window.onclick = function(event) {
+        if (event.target.className === 'modal') {
+            event.target.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    }
+
+    // Quiz-Funktionen
+    function showQuizExample(index) {
+        const example = quizExamples[index];
+        document.getElementById('quiz-progress').textContent = `Beispiel ${index + 1} von ${quizExamples.length}`;
+        document.getElementById('quiz-question-container').innerHTML = `
+            <p><strong>Beispiel:</strong> ${example.text}</p>
+            <p><strong>Aufgabe:</strong> Welche Prinzipien der Geschichtsschreibung erkennen Sie in diesem Beispiel? Klicken Sie auf die Prinzipien, die zutreffen.</p>
+        `;
+        
+        const optionsContainer = document.getElementById('quiz-options-container');
+        optionsContainer.innerHTML = '';
+        
+        Object.keys(example.principles).forEach(principle => {
+            const btn = document.createElement('button');
+            btn.className = 'quiz-option';
+            btn.textContent = principle;
+            btn.onclick = function() {
+                showQuizPrincipleExplanation(principle);
+            };
+            optionsContainer.appendChild(btn);
+        });
+        
+        document.getElementById('quiz-feedback').innerHTML = `
+            <p>Klicken Sie auf die Prinzipien, um Erklärungen zu sehen. Es gibt keine falschen Antworten - jedes Prinzip kann in jeder Geschichte wirken.</p>
+        `;
+        document.getElementById('quiz-feedback').className = 'feedback correct';
+        
+        document.getElementById('quiz-next-btn').style.display = 'block';
+    }
+
+    function showQuizPrincipleExplanation(principle) {
+        const example = quizExamples[currentQuizExample];
+        const explanation = example.principles[principle];
+        
+        document.getElementById('quiz-feedback').innerHTML = `
+            <p><strong>${principle}:</strong> ${explanation}</p>
+        `;
+        document.getElementById('quiz-feedback').className = 'feedback correct';
+    }
+
+    function nextQuizExample() {
+        currentQuizExample = (currentQuizExample + 1) % quizExamples.length;
+        showQuizExample(currentQuizExample);
+    }
+
+    // Beispiel-Funktionen
+    function loadExample(index) {
+        currentExampleIndex = index;
+        const example = examples[index];
+        
+        document.getElementById('example-title').textContent = example.title;
+        document.getElementById('example-content').textContent = example.content;
+        document.getElementById('example-display').style.display = 'block';
+        document.getElementById('principle-explanation').style.display = 'none';
+    }
+
+    function showExamplePrincipleExplanation(principle) {
+        const explanation = examples[currentExampleIndex].principles[principle] || 
+            "Keine spezifische Erklärung für dieses Prinzip in diesem Kontext vorhanden.";
+        document.getElementById('explanation-text').textContent = explanation;
+        document.getElementById('principle-explanation').style.display = 'block';
+    }
+
+    function loadNextExample() {
+        currentExampleIndex = (currentExampleIndex + 1) % examples.length;
+        loadExample(currentExampleIndex);
+    }
+
+    // Initialisierung
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialisiere die erste Zuordnungsaufgabe
+        if (document.getElementById('zuordnung-container')) {
+            showZuordnungAufgabe(currentZuordnungIndex);
+        }
+        
+        // Quiz initialisieren
+        if (document.getElementById('quiz-question-container')) {
+            showQuizExample(currentQuizExample);
+        }
+        
+        // Beispiele initialisieren
+        if (document.getElementById('example-display')) {
+            loadExample(currentExampleIndex);
+            
+            // Event-Listener für die Prinzipien-Buttons hinzufügen
+            document.querySelectorAll('.principle-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    showExamplePrincipleExplanation(this.textContent);
+                });
+            });
+        }
+    });
+
+    function showFeedback(element, message) {
+        const feedbackDiv = document.getElementById('feedback');
+        feedbackDiv.innerHTML = message;
+        feedbackDiv.style.display = 'block';
+        
+        // Mark active selection
+        document.querySelectorAll('.option').forEach(btn => {
+            btn.style.backgroundColor = '';
+        });
+        element.style.backgroundColor = '#e0e0e0';
+    }
+    
+    function nextQuestion() {
+        // Hier würde die Logik für die nächste Frage kommen
+        alert('Nächste Frage wird geladen...');
+    }
+ // 4. Tastatursteuerung für Modals
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            document.getElementById(modalId).setAttribute('aria-hidden', 'false');
+            
+            const escHandler = (e) => {
+                if (e.key === 'Escape') closeModal(modalId);
+            };
+            document.addEventListener('keydown', escHandler);
+        }
+// ===== Public History: Drag-and-Drop-Methodenvergleich =====
+let draggedItem = null;
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function dragStart(event) {
+    draggedItem = event.target;
+    event.dataTransfer.setData("text", event.target.textContent);
+    event.dataTransfer.setData("type", event.target.dataset.type);
+}
+
+function dropMethod(event) {
+    event.preventDefault();
+    const dropZone = event.target;
+    const dataType = event.dataTransfer.getData("type");
+    
+    if (
+        (dropZone.cellIndex === 1 && dataType === "strength") ||
+        (dropZone.cellIndex === 2 && dataType === "risk") ||
+        (dropZone.cellIndex === 3 && dataType === "example")
+    ) {
+        dropZone.innerHTML = draggedItem.textContent;
+        dropZone.dataset.filled = "true";
+    }
+}
+
+function checkMethods() {
+    const feedback = document.getElementById("method-feedback");
+    const filledZones = document.querySelectorAll(".dropzone[data-filled='true']");
+    
+    if (filledZones.length === 9) {
+        feedback.innerHTML = "✅ Richtig! Alle Felder sind korrekt zugeordnet.";
+        feedback.className = "feedback correct";
+    } else {
+        feedback.innerHTML = "❌ Nicht alle Felder sind ausgefüllt. Versuche, jede Spalte mit passenden Begriffen zu füllen (Stärken/Risiken/Beispiele).";
+        feedback.className = "feedback incorrect";
+    }
+}
+
+// ===== Public History: Fallbeispiel-Navigation =====
+let currentExample = 1;
+const totalExamples = 4;
+
+function updateExampleDisplay() {
+    document.querySelectorAll('.example-content').forEach(el => {
+        el.classList.remove('active');
+    });
+    document.getElementById(`example-${currentExample}`).classList.add('active');
+    document.getElementById('example-counter').textContent = `Beispiel ${currentExample}/${totalExamples}`;
+    document.getElementById('question-feedback').style.display = 'none';
+}
+
+function nextExample() {
+    currentExample = currentExample % totalExamples + 1;
+    updateExampleDisplay();
+}
+
+function prevExample() {
+    currentExample = currentExample > 1 ? currentExample - 1 : totalExamples;
+    updateExampleDisplay();
+}
+
+function showQuestionFeedback(questionNum) {
+    const feedback = document.getElementById("question-feedback");
+    const text = document.getElementById("feedback-text");
+    
+    const allAnswers = [
+        // Beispiel 1 (The Crown)
+        [
+            "Recherche im Abspann: Die Serie nutzt historische Berichte, mischt sie aber mit Fiktion.",
+            "Weil sie Emotionen weckt (normative Triftigkeit) – auch wenn Details ungenau sind.",
+            "Die Perspektive der britischen Kolonien oder der Arbeiterklasse wird oft ausgespart."
+        ],
+        // Beispiel 2 (Assassin’s Creed)
+        [
+            "Das Spiel basiert auf archäologischen Funden, aber kombiniert sie mit Fantasy-Elementen.",
+            "Spieler*innen identifizieren sich mit der Wikinger-Rolle – kritische Reflexion tritt in den Hintergrund.",
+            "Die komplexe politische Lage des 9. Jahrhunderts wird auf ,Gut vs. Böse‘ reduziert."
+        ],
+        // Beispiel 3 (DDR-Museum)
+        [
+            "Originalobjekte sind authentisch, aber die Inszenierung (z.B. ,DDR-Luft‘) ist konstruiert.",
+            "Besucher*innen wollen Nostalgie erleben – die Diktatur-Realität passt nicht dazu.",
+            "Der Alltag in der DDR wird gezeigt, aber ohne Systemkritik (z.B. Stasi-Überwachung)."
+        ],
+        // Beispiel 4 (TikTok)
+        [
+            "Fakten werden korrekt wiedergegeben, aber durch Zeitdruck extrem vereinfacht.",
+            "Der Algorithmus belohnt emotionale/clicksichere Darstellungen, nicht Nuancen.",
+            "Es entsteht ein Mosaik aus Einzelereignissen – historische Zusammenhänge fehlen."
+        ]
+    ];
+    
+    text.textContent = allAnswers[currentExample - 1][questionNum - 1];
+    feedback.style.display = "block";
+}
+
+function toggleTooltip() {
+    document.getElementById("tooltip").classList.toggle("hidden-content");
+}
+
+    </script>
+
+
+    <!-- Wissenschaftliches Literaturverzeichnis -->
+    <div style="background: #f8f9fa; border-top: 3px solid #17a2b8; margin-top: 30px; padding: 20px;">
+        <h3 style="color: #17a2b8; margin-top: 0;"><i class="fas fa-book-open"></i> Wissenschaftliches Literaturverzeichnis</h3>
+
+        <div style="margin-bottom: 20px;">
+            <h4 style="color: #495057; border-bottom: 1px solid #dee2e6; padding-bottom: 5px;">Primärquellen</h4>
+            <div style="margin-left: 20px;">
+                <p><strong>Kolesnikov, Andrej (2020):</strong> "Erinnerung als Waffe. Die Geschichtspolitik des Putin-Regimes", in: Osteuropa, 70. Jg., 6/2020, S. 3-28.<br>
+                <em>Zentrale Analyse manipulativer Geschichtspolitik als Warnsystem für demokratische Gesellschaften.</em></p>
+
+                <p><strong>Mörike, Lena (2022):</strong> "Nationale Geschichtspolitik. Der Versailler Friedensvertrag in der 100-jährigen Erinnerung in Schulbüchern aus vier Nationen", Bielefeld: transcript Verlag.<br>
+                <em>Methodisches Vorbild für transnationale Schulbuchanalyse und wissenschaftliche Fundierung der Erinnerungskulturforschung.</em></p>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h4 style="color: #495057; border-bottom: 1px solid #dee2e6; padding-bottom: 5px;">Sekundärliteratur und Grundlagen</h4>
+            <div style="margin-left: 20px;">
+                <p><strong>KMK - Kultusministerkonferenz (2014):</strong> "Empfehlung zur Erinnerungskultur als Gegenstand historisch-politischer Bildung in der Schule"<br>
+                <em>Offizielle bildungspolitische Grundlage für die Behandlung von Erinnerungskultur im Unterricht.</em></p>
+
+                <p><strong>Assmann, Aleida (2013):</strong> "Das neue Unbehagen an der Erinnerungskultur. Eine Intervention", München: C.H. Beck.</p>
+
+                <p><strong>Bundeszentrale für politische Bildung (2023):</strong> "Medienkompetenz und Schule", in: Informationen zur politischen Bildung, Nr. 355.<br>
+                <em>Aktuelle Konzepte zur Vermittlung kritischer Medienkompetenz.</em></p>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h4 style="color: #495057; border-bottom: 1px solid #dee2e6; padding-bottom: 5px;">Weiterführende Empfehlungen</h4>
+            <div style="margin-left: 20px;">
+                <ul>
+                    <li><strong>Georg-Eckert-Institut für internationale Schulbuchforschung:</strong> Aktuelle Forschungsergebnisse zu internationalen Geschichtsdiskursen</li>
+                    <li><strong>klicksafe.de:</strong> Praktische Materialien zur Förderung der Medienkompetenz</li>
+                    <li><strong>bpb.de:</strong> Dossiers zu Erinnerungskultur und politischer Bildung</li>
+                    <li><strong>lie-detectors.org:</strong> Internationale Initiative zur Förderung kritischen Denkens in Schulen</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 5px; margin-top: 15px;">
+            <p style="margin: 0; font-style: italic; font-size: 0.9em;"><i class="fas fa-info-circle"></i> 
+            Diese erweiterte Fassung der kognitiven Landkarte wurde wissenschaftlich fundiert durch aktuelle Forschung aus Geschichtsdidaktik, Medienpädagogik und Politikwissenschaft. Stand: September 2025.</p>
+        </div>
+    </div>
+</body>
+</html>
